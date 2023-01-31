@@ -7,11 +7,6 @@ class Product extends CI_Controller {
 
         parent::__construct();
         $this->viewFolder = 'product_view';
-        $this->subViewFolder = 'list';
-
-        echo $this->viewFolder;
-        echo $this->subViewFolder;
-        
 
     }
 
@@ -19,7 +14,7 @@ class Product extends CI_Controller {
 
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = $this->subViewFolder;
+        $viewData->subViewFolder = 'list';
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
