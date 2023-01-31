@@ -82,10 +82,30 @@ class Product extends CI_Controller {
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
-        // Başarılı ise kayıt işlemi gerçekleşir ->
+        
 
+    }
 
-        // Başarsız ise Hata Gösterilir.
+    public function update_form($id){
+
+        $viewData = new stdClass();
+
+        // Veritabanındaki Tablodan Verilerin Getirilmesi
+
+        $item = $this->product_model->get(
+            array(
+                "id" => $id
+
+            )
+        );
+
+        // View'e Gönderileceklerin Set Edilmesi
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = 'update';
+        $viewData->item = $item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
