@@ -2,18 +2,20 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Ürün Listesi
-            <a href="" class="btn btn-outline btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Yeni Ekle</a>
+            <a href="" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i><b>Yeni Ekle</b></a>
         </h4>
     </div><!-- END column -->
 
     <div class="col-md-12">
         <div class="widget p-lg">
 
+        <?php if (empty($items)) { ?>
         <div class="alert alert-info text-center">
                 <h5 class="alert-title">Kayıt Bulunamadı</h5>
                 <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a href="#"><strong>tıklayınız.</strong></a></p>
         </div>
-            
+        <?php } else { ?>
+
             <table class="table table-hover table-striped">
                 <thead>
                     <th>#</th>
@@ -28,28 +30,41 @@
                     <th>Durumu</th>
                     <th>İşlemler</th>
                 </thead>
+
                 <tbody>
+                
+                <?php $i = 0;
+                 foreach ($items as $item) {
+                    $i++;
+                 ?>
                     <tr>
-                        <td>1</td>
-                        <td>Masa</td>
-                        <td>4 Kişilik Mutfak Masası</td>
-                        <td>Masalar</td>
-                        <td>Mutfak Masaları</td>
-                        <td>Ahmet Mehmet</td>
-                        <td>31.01.2023</td>
-                        <td>01.02.2023</td>
-                        <td></td>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $item->title; ?></td>
+                        <td><?php echo $item->description; ?></td>
+                        <td><?php echo $item->category_id; ?></td>
+                        <td><?php echo $item->sub_category_id; ?></td>
+                        <td><?php echo $item->user_id; ?></td>
+                        <td><?php echo $item->createdAt; ?></td>
+                        <td><?php echo $item->updatedAt; ?></td>
+                        <td><?php echo $item->deletedAt;?></td>
                         <td>
-                            <input id="switch-2-2" type="checkbox" data-switchery data-color="#10c469" checked />
+                            <input 
+                            id="switch-2-2" 
+                            type="checkbox" 
+                            data-switchery 
+                            data-color="#10c469" 
+                            <?php echo ($item->isActive) ? 'checked' : '' ?>
+                            />
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-danger btn-outline"><i class="fa fa-trash"></i> Sil </a>
-                            <a href="#" class="btn btn-sm btn-warning btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle </a>
+                            <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i><b> Sil </b></a>
+                            <a href="#" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
                         </td>
                     </tr>
-
+                <?php } ?>
                 </tbody>
             </table>
+            <?php } ?>
         </div><!-- .widget -->
     </div>
 </div>
