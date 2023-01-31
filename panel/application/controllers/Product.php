@@ -37,8 +37,31 @@ class Product extends CI_Controller {
 
     }
 
+    /* Form Kontrolleri */
     public function save(){
-        echo "saved";
+        // Kütüphane çağırılır ->
+        $this->load->library('form_validation');
+        // Kurallar tanımlanır ->     // Parametre olarak formdaki name, başlık, kurallar
+        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+
+        $this->form_validation->set_message(
+            array(
+                'required' => '<b>{field}</b> Alanını Doldurulmalıdır.'
+            )
+        );
+        // Form Validation çalışır -> (True veya False değer döner.)
+        $validate = $this->form_validation->run();
+
+        if ($validate){
+            echo 'Kayıt İşlemleri Başlar';
+        } else {
+            echo validation_errors();
+        }
+        // Başarılı ise kayıt işlemi gerçekleşir ->
+
+
+        // Başarsız ise Hata Gösterilir.
+
     }
 
 }
