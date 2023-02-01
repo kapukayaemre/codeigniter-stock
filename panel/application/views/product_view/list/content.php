@@ -48,11 +48,12 @@
                         <td><?php echo $item->updatedAt; ?></td>
                         <td><?php echo $item->deletedAt;?></td>
                         <td>
-                            <input 
-                            id="switch-2-2" 
-                            type="checkbox" 
+                            <input
+                            data-url = "<?php echo base_url("product/isActiveSetter/$item->id") ?>"
+                            class = "isActive"
+                            type = "checkbox" 
                             data-switchery 
-                            data-color="#10c469" 
+                            data-color = "#10c469" 
                             <?php echo ($item->isActive) ? 'checked' : '' ?>
                             />
                         </td>
