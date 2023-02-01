@@ -1,1 +1,1 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam consequatur consequuntur delectus maiores nemo placeat, quas ratione voluptate voluptates. Ad adipisci eaque impedit necessitatibus perferendis tenetur totam vel voluptatem!
+BURADA GRAFIKSEL TAKIPLERIN YAPILACAGI VERILER OLACAK !!

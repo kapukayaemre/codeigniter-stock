@@ -2,6 +2,7 @@
 
 class Product extends CI_Controller {
     public $viewFolder = '';
+
     public function __construct(){
 
         parent::__construct();
@@ -46,7 +47,7 @@ class Product extends CI_Controller {
 
         $this->form_validation->set_message(
             array(
-                'required' => '<b>{field}</b> Alanını Doldurulmalıdır.'
+                'required' => '<b>{field}</b> Alanı Doldurulmalıdır.'
             )
         );
         // Form Validation çalışır -> (True veya False değer döner.)
@@ -135,12 +136,8 @@ class Product extends CI_Controller {
                     'title'             => $this->input->post('title'),
                     'description'       => $this->input->post('description'),
                     'category_id'       => null,
-                    'sub_category_id'   => null,
-                    'user_id'           => null,
-                    'createdAt'         => date('Y-m-d H:i:s'),
-                    'updatedAt'         => null,
-                    'deletedAt'         => null,
-                    'isActive'          => 1,
+                    'sub_category_id'   => null
+                    
                     
                 )
             );

@@ -60,66 +60,41 @@
 
                 <li>
                     <a href="<?php echo base_url('dashboard'); ?>">
-                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
+                        <i class="menu-icon fa fa-tachometer"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
 
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                <li>
+                    <a href="<?php echo base_url('category'); ?>">
                         <i class="menu-icon fa fa-cubes"></i>
-                        <span class="menu-text">Kategoriler</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        <span class="menu-text">Ana Kategoriler</span>
                     </a>
+                </li>
 
-                    <!-- //! Submenus -->
-                    <ul class="submenu">
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)" class="submenu-toggle">
-                                <span class="menu-text">Dolaplar</span>
-                                <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                            </a>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)" class="submenu-toggle">
-                                <span class="menu-text">Yataklar</span>
-                                <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                            </a>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)" class="submenu-toggle">
-                                <span class="menu-text">Masalar</span>
-                                <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                            </a>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)" class="submenu-toggle">
-                                <span class="menu-text">Oturma Grupları</span>
-                                <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                 <li>
+                    <a href="#" class="submenu-toggle">
+                        <i class="menu-icon fa fa-cube"></i>
+                        <span class="menu-text">Alt Kategoriler</span>
+                    </a>
                 </li>
                 
                 <li>
                     <a href="<?php echo base_url('product'); ?>">
-                        <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
+                        <i class="menu-icon fa fa-dropbox"></i>
                         <span class="menu-text">Ürünler</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript:void(0)">
-                        <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
+                        <i class="menu-icon fa fa-th"></i>
                         <span class="menu-text">Raflar</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="documentation.html">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
                         <span class="menu-text">Stoklar</span>
                     </a>
