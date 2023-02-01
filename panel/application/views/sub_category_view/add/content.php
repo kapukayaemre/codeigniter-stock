@@ -1,22 +1,22 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            Yeni Kategori Ekle
+            Yeni Alt Kategori Ekle
         </h4>
     </div>
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('category/save'); ?>" method="POST">
+                <form action="<?php echo base_url('sub_category/save'); ?>" method="POST">
                     <div class="form-group">
-                        <label>Kategori Adı</label>
-                        <input class="form-control" placeholder="Kategori Adı" name="category_name">
+                        <label>Alt Kategori Adı</label>
+                        <input class="form-control" placeholder="Alt Kategori Adı" name="sub_category_name">
                         <?php if (isset($form_error)) { ?>
-                            <small class="input-form-error"><?php echo form_error('category_name'); ?></small>
+                            <small class="input-form-error"><?php echo form_error('sub_category_name'); ?></small>
                         <?php } ?>
                     </div>
                     <button type="submit" class="btn btn-success btn-md">Ekle</button>
-                    <a href="<?php echo base_url('category'); ?>" class="btn btn-md btn-danger">İptal</a>
+                    <a href="<?php echo base_url('sub_category'); ?>" class="btn btn-md btn-danger">İptal</a>
                 </form>
             </div><!-- .widget-body -->
         </div>

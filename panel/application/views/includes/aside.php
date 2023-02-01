@@ -73,7 +73,7 @@
                 </li>
 
                  <li>
-                    <a href="#" class="submenu-toggle">
+                    <a href="<?php echo base_url('sub_category'); ?>">
                         <i class="menu-icon fa fa-cube"></i>
                         <span class="menu-text">Alt Kategoriler</span>
                     </a>
