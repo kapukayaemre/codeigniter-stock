@@ -8,6 +8,10 @@ class Shelves extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'shelves_view';
         $this->load->model('shelves_model');
+
+        if(!get_active_user()){
+			redirect(base_url('login'));
+		}
     
     }
 

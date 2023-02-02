@@ -13,6 +13,10 @@ class Userop extends CI_Controller {
 
     public function login(){
 
+        if(get_active_user()){
+            redirect(base_url());
+        }
+
         $viewData = new stdClass();
 
 
@@ -24,6 +28,10 @@ class Userop extends CI_Controller {
     }
 
     public function do_login(){
+
+        if(get_active_user()){
+            redirect(base_url());
+        }
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules("user_email", "E-posta", "required|trim|valid_email");
@@ -56,16 +64,17 @@ class Userop extends CI_Controller {
             $user = $this->user_model->get(
                 array(
                     'email'     => $this->input->post('user_email'),
-                    'password'  => md5($this->input->post('user_password'))
+                    'password'  => md5($this->input->post('user_password')),
+                    'isActive'  => 1
                 )
             );
 
             if($user){
                 
                 $alert = array(
-                    'title' => 'İşlem Başarılı',
-                    'text' => "$user->full_name Hoşgeldiniz",
-                    'type'  => "success"
+                    "title"     => "İşlem Başarılı",
+                    "message"   => "$user->full_name Hoşgeldiniz",
+                    "type"      => "success"
                 );
 
                 $this->session->set_userdata('user', $user);
@@ -76,11 +85,11 @@ class Userop extends CI_Controller {
             } else {
 
                 $alert = array(
-                    'title' => 'İşlem Başarısız',
-                    'text'  => 'Lütfen Giriş Bilgilerini Kontrol Ediniz',
-                    'type'  => 'error'
+                    "title"     => "İşlem Başarısız",
+                    "message"   => "Lütfen Giriş Bilgilerini Kontrol Ediniz",
+                    "type"      => "error"
                 );
-
+                $this->session->set_flashdata("alert", $alert);
                 redirect(base_url('login'));
             }
 
@@ -89,6 +98,10 @@ class Userop extends CI_Controller {
 
     }
 
+    public function logout(){
+        $this->session->unset_userdata('user');
+        redirect(base_url('login'));
+    }
 
 
 }

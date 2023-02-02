@@ -8,6 +8,10 @@ class Category extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'category_view';
         $this->load->model('category_model');
+
+        if(!get_active_user()){
+			redirect(base_url('login'));
+		}
     
     }
 

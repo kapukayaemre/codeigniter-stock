@@ -8,6 +8,10 @@ class Sub_category extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'sub_category_view';
         $this->load->model('sub_category_model');
+
+        if(!get_active_user()){
+			redirect(base_url('login'));
+		}
     
     }
 

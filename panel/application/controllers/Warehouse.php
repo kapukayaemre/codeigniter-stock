@@ -8,6 +8,10 @@ class Warehouse extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'warehouse_view';
         $this->load->model('warehouse_model');
+
+        if(!get_active_user()){
+			redirect(base_url('login'));
+		}
     
     }
 
