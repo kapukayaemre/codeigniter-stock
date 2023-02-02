@@ -17,7 +17,7 @@ class Category extends CI_Controller {
 
     //! Listeleme icin viewe gönderilenler
     public function index(){
-
+        
         $viewData = new stdClass();
         $items = $this->category_model->get_all();
         $viewData->viewFolder = $this->viewFolder;
@@ -58,10 +58,8 @@ class Category extends CI_Controller {
             $insert = $this->category_model->add(
                 array(
                     'category_name'     => $this->input->post('category_name'),
-                    'user_id'           => null,
+                    'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
-                    'updatedAt'         => null,
-                    'deletedAt'         => null,
                     'isActive'          => 1
 
                 )
@@ -139,7 +137,9 @@ class Category extends CI_Controller {
                     'id' => $id
                 ),
                 array(
-                    'category_name' => $this->input->post('category_name')
+                    'category_name' => $this->input->post('category_name'),
+                    'user_id'       => $this->session->user->id,
+                    'updatedAt'     => date('Y-m-d H:i:s')
                 )
             );
 

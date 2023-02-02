@@ -65,7 +65,7 @@ class Product extends CI_Controller {
                     'description'       => $this->input->post('description'),
                     'category_id'       => null,
                     'sub_category_id'   => null,
-                    'user_id'           => null,
+                    'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
                     'updatedAt'         => null,
                     'deletedAt'         => null,

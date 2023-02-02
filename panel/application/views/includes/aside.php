@@ -1,7 +1,4 @@
-<?php 
-$user = get_active_user();
- 
-?>
+<?php $user = get_active_user(); ?>
 
 <aside id="menubar" class="menubar light">
     <div class="app-user">
@@ -107,7 +104,7 @@ $user = get_active_user();
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url('stockcard'); ?>">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">Stok Kartları</span>
                     </a>

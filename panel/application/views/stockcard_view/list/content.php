@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            Kategori Listesi
-            <a href="<?php echo base_url('category/new_form'); ?>" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> <b>Yeni Ekle</b></a>
+            Stok Kart Listesi
+            <a href="<?php echo base_url('stockcard/new_form'); ?>" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> <b>Yeni Ekle</b></a>
         </h4>
     </div><!-- END column -->
 
@@ -12,15 +12,17 @@
         <?php if (empty($items)) { ?>
         <div class="alert alert-info text-center">
                 <h5 class="alert-title">Kayıt Bulunamadı</h5>
-                <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a href="<?php echo base_url('category/new_form'); ?>"><strong>tıklayınız.</strong></a></p>
+                <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a href="<?php echo base_url('stockcard/new_form'); ?>"><strong>tıklayınız.</strong></a></p>
         </div>
         <?php } else { ?>
 
             <table class="table table-hover table-striped">
                 <thead>
                     <th>#</th>
-                    <th>Kategori Adı</th>
-                    <th>Son Düzenleyen</th>
+                    <th>Ürün Adı</th>
+                    <th>Ana Kategori</th>
+                    <th>Alt Kategorisi</th>
+                    <th>Sorumlu</th>
                     <th>Kayıt Tarihi</th>
                     <th>Düzenlenme Tarihi</th>
                     <th>Silinme Tarihi</th>
@@ -36,14 +38,16 @@
                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $item->category_name; ?></td>
+                        <td><?php echo $item->stockcard_title; ?></td>
+                        <td><?php echo $item->category_id; ?></td>
+                        <td><?php echo $item->sub_category_id; ?></td>
                         <td><?php echo $item->user_id; ?></td>
                         <td><?php echo $item->createdAt; ?></td>
                         <td><?php echo $item->updatedAt; ?></td>
                         <td><?php echo $item->deletedAt;?></td>
                         <td>
                             <input
-                            data-url = "<?php echo base_url("category/isActiveSetter/$item->id") ?>"
+                            data-url = "<?php echo base_url("stockcard/isActiveSetter/$item->id") ?>"
                             class = "isActive"
                             type = "checkbox" 
                             data-switchery 
@@ -53,11 +57,11 @@
                         </td>
                         <td>
                         <button
-                            data-url="<?php echo base_url("category/delete/$item->id"); ?>"
+                            data-url="<?php echo base_url("stockcard/delete/$item->id"); ?>"
                             class="btn btn-sm btn-danger remove-btn">
                             <i class="fa fa-trash"></i> <b>Sil</b>
                             </button>
-                            <a href="<?php echo base_url("category/update_form/$item->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
+                            <a href="<?php echo base_url("stockcard/update_form/$item->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
                         </td>
                     </tr>
                 <?php } ?>

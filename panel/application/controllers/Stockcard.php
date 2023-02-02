@@ -1,25 +1,28 @@
 <?php
 
-class Sub_category extends CI_Controller {
+class Stockcard extends CI_Controller {
+    public $viewFolder = '';
 
-    public $viewFolder = "";
-    public function __construct() {
-        
+    public function __construct(){
+
         parent::__construct();
-        $this->viewFolder = 'sub_category_view';
-        $this->load->model('sub_category_model');
+        $this->viewFolder = 'stockcard_view';
+        $this->load->model('stockcard_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
 		}
-    
+
     }
 
-    //! Listeleme icin viewe gönderilenler
     public function index(){
 
         $viewData = new stdClass();
-        $items = $this->sub_category_model->get_all();
+
+        /* Veritabanındaki Tablodan Verilerin Getirilmesi */
+        $items = $this->stockcard_model->get_all();
+
+        /* View'e Gönderilecek Verilerin Set Edilmesi */
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
         $viewData->items = $items;
@@ -28,7 +31,7 @@ class Sub_category extends CI_Controller {
 
     }
 
-    //! Yeni Kategori Ekleme Arayüzü
+    /* Yeni Ürün Ekleme */
     public function new_form(){
 
         $viewData = new stdClass();
@@ -39,33 +42,34 @@ class Sub_category extends CI_Controller {
 
     }
 
-    //! Kategori Kayıt İçin Form Kontrolleri
+    /* Form Kontrolleri */
     public function save(){
-
+        // Kütüphane çağırılır ->
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adı', 'required|trim');
+        // Kurallar tanımlanır ->     // Parametre olarak formdaki name, başlık, kurallar
+        $this->form_validation->set_rules('stockcard_title', 'Stok Kartı Başlık', 'required|trim');
+
         $this->form_validation->set_message(
             array(
                 'required' => '<b>{field}</b> Alanı Doldurulmalıdır.'
             )
         );
-
+        // Form Validation çalışır -> (True veya False değer döner.)
         $validate = $this->form_validation->run();
-
-        //! Veritabanına Kayıt İşlemleri ve Kontrolleri
-
-        if($validate) {
-            $insert = $this->sub_category_model->add(
+        
+        // VERITABANINA KAYIT YOLLAMA
+        if ($validate){
+            $insert = $this->stockcard_model->add(
                 array(
-                    'sub_category_name'     => $this->input->post('sub_category_name'),
+                    'stockcard_title'       => $this->input->post('stockcard_title'),
                     'category_id'           => null,
+                    'sub_category_id'       => null,
                     'user_id'               => $this->session->user->id,
                     'createdAt'             => date('Y-m-d H:i:s'),
                     'isActive'              => 1
-
                 )
             );
-            if ($insert) {
+            if ($insert){
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
@@ -80,69 +84,81 @@ class Sub_category extends CI_Controller {
                     "message"  => "Kayıt Eklerken Bir Hata Oluştu",
                     "type"  => "error"
                 );
-               
-            }
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url('sub_category'));
-        
-        } else {
 
+            }
+            //! İşlemin sonucunun sessiona aktarılması
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('stockcard'));
+
+
+        } else {
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
-            $viewData->form_error = true; //! Alertler İçin True olarak yönlendirildi.
+            $viewData->form_error = true;
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-
-        }        
+        }
+        
 
     }
-
+    /* Güncelleme Formu */
     public function update_form($id){
 
         $viewData = new stdClass();
-        
-        //! Veritabanından Güncellenecek Dosya 
-        $item = $this->sub_category_model->get(
-            array(
-                'id' => $id
-            )
 
+        // Veritabanındaki Tablodan Verilerin Getirilmesi
+
+        $item = $this->stockcard_model->get(
+            array(
+                "id" => $id
+
+            )
         );
 
-        //! View'e Gönderilecek Veriler
+        // View'e Gönderileceklerin Set Edilmesi
+
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
-
     }
 
     public function update($id){
-
+        // Kütüphane çağırılır ->
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adi', 'required|trim');
+        // Kurallar tanımlanır ->     // Parametre olarak formdaki name, başlık, kurallar
+        $this->form_validation->set_rules('stockcard_title', 'Stok Kartı Başlık', 'required|trim');
+
         $this->form_validation->set_message(
             array(
-                'required'  => '<b>{field}</b> Alanı Doldurulmalıdır.'
+                'required' => '<b>{field}</b> Alanını Doldurulmalıdır.'
             )
         );
+        // Form Validation çalışır -> (True veya False değer döner.)
+        $validate = $this->form_validation->run();
 
-        $validation = $this->form_validation->run();
+        // VERITABANINA KAYIT YOLLAMA
+        if ($validate){
+            $update = $this->stockcard_model->update(
 
-        if ($validation) {
-            $update = $this->sub_category_model->update(
                 array(
-                    'id' => $id
+                    'id'    => $id
                 ),
+
                 array(
-                    'sub_category_name' => $this->input->post('sub_category_name')
+                    'stockcard_title'       => $this->input->post('stockcard_title'),
+                    'category_id'           => null,
+                    'sub_category_id'       => null,
+                    'user_id'               => $this->session->user->id,
+                    'updatedAt'             => date('Y-m-d H:i:s')
+
                 )
             );
-
-            if ($update) {
+            
+            if ($update){
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
@@ -157,20 +173,23 @@ class Sub_category extends CI_Controller {
                     "message"  => "Güncelleme Sırasında Hata Oluştu",
                     "type"  => "error"
                 );
-                
-            }
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url('sub_category'));
-            
-        } else {
 
+            }
+
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('stockcard'));
+
+        } else {
             $viewData = new stdClass();
 
-            $item = $this->sub_category_model->get(
+            /* Tekrar View'e Yolladığımızda item değişkeni tanımlı olmadığı için hata verir.
+             Bu sebepten dolayı bir view yüklerken tüm gereksinimleri karşılanmalıdır.!!! */
+            $item = $this->stockcard_model->get(
                 array(
-                    'id' => $id
+                    'id'    => $id
                 )
             );
+
 
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
@@ -178,20 +197,19 @@ class Sub_category extends CI_Controller {
             $viewData->item = $item;
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-
         }
 
     }
 
-    public function delete($id) {
-        $delete = $this->sub_category_model->delete(
+    public function delete($id){
+        $delete = $this->stockcard_model->delete(
             array(
-                'id' => $id
+                'id'    => $id
             )
         );
-
+    
         if($delete) {
-            
+
             $alert = array(
                 "title" => "İşlem Başarılı",
                 "message"  => "Kayıt Başarılı Bir Şekilde Silindi",
@@ -205,18 +223,17 @@ class Sub_category extends CI_Controller {
                 "message"  => "Silme İşlemi Sırasında Hata Oluştu",
                 "type"  => "error"
             );
-            
+
         }
         $this->session->set_flashdata("alert", $alert);
-        redirect(base_url('sub_category'));
+        redirect(base_url('stockcard'));
     }
 
-    //! Toggle
     public function isActiveSetter($id){
 
         if ($id){
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
-            $this->sub_category_model->update(
+            $this->stockcard_model->update(
                 array(
                     "id" => $id
                 ),
@@ -227,8 +244,6 @@ class Sub_category extends CI_Controller {
         }
 
     }
-
-    
 
 
 }
