@@ -1,13 +1,13 @@
 <?php
 
-class Sub_category extends CI_Controller {
+class Shelves extends CI_Controller {
 
     public $viewFolder = "";
     public function __construct() {
         
         parent::__construct();
-        $this->viewFolder = 'sub_category_view';
-        $this->load->model('sub_category_model');
+        $this->viewFolder = 'shelves_view';
+        $this->load->model('shelves_model');
     
     }
 
@@ -15,7 +15,7 @@ class Sub_category extends CI_Controller {
     public function index(){
 
         $viewData = new stdClass();
-        $items = $this->sub_category_model->get_all();
+        $items = $this->shelves_model->get_all();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
         $viewData->items = $items;
@@ -39,7 +39,7 @@ class Sub_category extends CI_Controller {
     public function save(){
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adı', 'required|trim');
+        $this->form_validation->set_rules('shelves_name', 'Raf Adı', 'required|trim');
         $this->form_validation->set_message(
             array(
                 'required' => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -51,22 +51,23 @@ class Sub_category extends CI_Controller {
         //! Veritabanına Kayıt İşlemleri ve Kontrolleri
 
         if($validate) {
-            $insert = $this->sub_category_model->add(
+            $insert = $this->shelves_model->add(
                 array(
-                    'sub_category_name'     => $this->input->post('sub_category_name'),
-                    'category_id'           => null,
-                    'user_id'               => null,
-                    'createdAt'             => date('Y-m-d H:i:s'),
-                    'updatedAt'             => null,
-                    'deletedAt'             => null,
-                    'isActive'              => 1
+                    'shelves_name'      => $this->input->post('shelves_name'),
+                    'warehouse_id'      => null,
+                    'product_id'        => null,
+                    'user_id'           => null,
+                    'createdAt'         => date('Y-m-d H:i:s'),
+                    'updatedAt'         => null,
+                    'deletedAt'         => null,
+                    'isActive'          => 1
 
                 )
             );
             if ($insert) {
-                redirect(base_url('sub_category'));
+                redirect(base_url('shelves'));
             } else {
-                redirect(base_url('sub_category'));
+                redirect(base_url('shelves'));
             }
         
         } else {
@@ -87,7 +88,7 @@ class Sub_category extends CI_Controller {
         $viewData = new stdClass();
         
         //! Veritabanından Güncellenecek Dosya 
-        $item = $this->sub_category_model->get(
+        $item = $this->shelves_model->get(
             array(
                 'id' => $id
             )
@@ -107,7 +108,7 @@ class Sub_category extends CI_Controller {
     public function update($id){
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adi', 'required|trim');
+        $this->form_validation->set_rules('shelves_name', 'Raf Adi', 'required|trim');
         $this->form_validation->set_message(
             array(
                 'required'  => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -117,26 +118,26 @@ class Sub_category extends CI_Controller {
         $validation = $this->form_validation->run();
 
         if ($validation) {
-            $update = $this->sub_category_model->update(
+            $update = $this->shelves_model->update(
                 array(
                     'id' => $id
                 ),
                 array(
-                    'sub_category_name' => $this->input->post('sub_category_name')
+                    'shelves_name' => $this->input->post('shelves_name')
                 )
             );
 
             if ($update) {
-                redirect(base_url('sub_category'));
+                redirect(base_url('shelves'));
             } else {
-                redirect(base_url('sub_category'));
+                redirect(base_url('shelves'));
             }
             
         } else {
 
             $viewData = new stdClass();
 
-            $item = $this->sub_category_model->get(
+            $item = $this->shelves_model->get(
                 array(
                     'id' => $id
                 )
@@ -154,37 +155,33 @@ class Sub_category extends CI_Controller {
     }
 
     public function delete($id) {
-        $delete = $this->sub_category_model->delete(
+        $delete = $this->shelves_model->delete(
             array(
                 'id' => $id
             )
         );
 
         if($delete) {
-            redirect(base_url('sub_category'));
+            redirect(base_url('shelves'));
         } else {
-            redirect(base_url('sub_category'));
+            redirect(base_url('shelves'));
         }
     }
 
     //! Toggle
-    public function isActiveSetter($id){
-
+    public function isActiveSetter($id) {
         if ($id){
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
-            $this->sub_category_model->update(
+            $this->shelves_model->update(
                 array(
-                    "id" => $id
+                    'id' => $id
                 ),
                 array(
-                    "isActive" => $isActive
+                    'isActive' => $isActive
                 )
             );
         }
-
     }
-
-    
 
 
 }

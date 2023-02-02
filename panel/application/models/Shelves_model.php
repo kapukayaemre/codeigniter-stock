@@ -1,8 +1,8 @@
 <?php
 
-class Sub_category_model extends CI_Model{
+class Shelves_model extends CI_Model{
 
-    public $tableName = 'sub_category';
+    public $tableName = 'shelves';
     public function __construct(){
         parent::__construct();
     }
@@ -26,6 +26,5 @@ class Sub_category_model extends CI_Model{
     public function delete($where = array()){
         return $this->db->where($where)->delete($this->tableName);
     }
-
 
 }

@@ -87,7 +87,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url('shelves'); ?>">
                         <i class="menu-icon fa fa-th"></i>
                         <span class="menu-text">Raflar</span>
                     </a>
