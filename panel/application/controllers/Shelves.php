@@ -65,10 +65,24 @@ class Shelves extends CI_Controller {
                 )
             );
             if ($insert) {
-                redirect(base_url('shelves'));
+
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Eklendi",
+                    "type"  => "success"
+                );
+
             } else {
-                redirect(base_url('shelves'));
+
+                $alert = array(
+                    "title" => "İşlem Başarısız",
+                    "message"  => "Kayıt Eklerken Bir Hata Oluştu",
+                    "type"  => "error"
+                );
+               
             }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('shelves'));
         
         } else {
 
@@ -128,11 +142,24 @@ class Shelves extends CI_Controller {
             );
 
             if ($update) {
-                redirect(base_url('shelves'));
+
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Güncellendi",
+                    "type"  => "success"
+                );
+
             } else {
-                redirect(base_url('shelves'));
+
+                $alert = array(
+                    "title" => "İşlem Başarısız",
+                    "message"  => "Güncelleme Sırasında Hata Oluştu",
+                    "type"  => "error"
+                );
+                
             }
-            
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('shelves'));
         } else {
 
             $viewData = new stdClass();
@@ -162,10 +189,24 @@ class Shelves extends CI_Controller {
         );
 
         if($delete) {
-            redirect(base_url('shelves'));
+
+            $alert = array(
+                "title" => "İşlem Başarılı",
+                "message"  => "Kayıt Başarılı Bir Şekilde Silindi",
+                "type"  => "success"
+            );
+
         } else {
-            redirect(base_url('shelves'));
+
+            $alert = array(
+                "title" => "İşlem Başarısız",
+                "message"  => "Silme İşlemi Sırasında Hata Oluştu",
+                "type"  => "error"
+            );
+            
         }
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url('shelves'));
     }
 
     //! Toggle

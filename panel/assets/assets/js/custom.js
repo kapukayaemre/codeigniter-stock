@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   $(".remove-btn").click(function () {
     //attr("data-url") ile aynı işlev
     var $data_url = $(this).data("url");

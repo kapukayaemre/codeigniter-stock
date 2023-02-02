@@ -25,8 +25,8 @@
                         <?php } ?>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
-                    <a href="<?php echo base_url("users"); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
+                    <button type="submit" class="btn btn-primary btn-md"><b>Güncelle</b></button>
+                    <a href="<?php echo base_url("users"); ?>" class="btn btn-md btn-danger"><b>İptal</b></a>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

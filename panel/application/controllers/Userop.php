@@ -74,7 +74,14 @@ class Userop extends CI_Controller {
                 redirect(base_url());
 
             } else {
-                //! HATA VERİLECEK
+
+                $alert = array(
+                    'title' => 'İşlem Başarısız',
+                    'text'  => 'Lütfen Giriş Bilgilerini Kontrol Ediniz',
+                    'type'  => 'error'
+                );
+
+                redirect(base_url('login'));
             }
 
         }

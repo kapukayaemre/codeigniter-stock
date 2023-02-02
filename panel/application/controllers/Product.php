@@ -69,10 +69,25 @@ class Product extends CI_Controller {
                 )
             );
             if ($insert){
-                redirect(base_url('product'));
+
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Eklendi",
+                    "type"  => "success"
+                );
+
             } else {
-                redirect(base_url('product'));
+
+                $alert = array(
+                    "title" => "İşlem Başarısız",
+                    "message"  => "Kayıt Eklerken Bir Hata Oluştu",
+                    "type"  => "error"
+                );
+
             }
+            //! İşlemin sonucunun sessiona aktarılması
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('product'));
 
 
         } else {
@@ -143,12 +158,25 @@ class Product extends CI_Controller {
             );
             
             if ($update){
-                redirect(base_url('product'));
+
+                $alert = array(
+                    "title" => "İşlem Başarılı",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Güncellendi",
+                    "type"  => "success"
+                );
+
             } else {
-                redirect(base_url('product'));
+
+                $alert = array(
+                    "title" => "İşlem Başarısız",
+                    "message"  => "Güncelleme Sırasında Hata Oluştu",
+                    "type"  => "error"
+                );
+
             }
 
-
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url('product'));
 
         } else {
             $viewData = new stdClass();
@@ -178,16 +206,26 @@ class Product extends CI_Controller {
                 'id'    => $id
             )
         );
-
-        
-        
+    
         if($delete) {
 
-            redirect(base_url('product'));
-
+            $alert = array(
+                "title" => "İşlem Başarılı",
+                "message"  => "Kayıt Başarılı Bir Şekilde Silindi",
+                "type"  => "success"
+            );
+            
         } else {
-            redirect(base_url('product'));
+
+            $alert = array(
+                "title" => "İşlem Başarısız",
+                "message"  => "Silme İşlemi Sırasında Hata Oluştu",
+                "type"  => "error"
+            );
+
         }
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url('product'));
     }
 
     public function isActiveSetter($id){

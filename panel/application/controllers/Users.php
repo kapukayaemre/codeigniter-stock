@@ -85,7 +85,7 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
-                    "text" => "Kayıt başarılı bir şekilde eklendi",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Eklendi",
                     "type"  => "success"
                 );
 
@@ -93,14 +93,13 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Kayıt Ekleme sırasında bir problem oluştu",
+                    "message"  => "Kayıt Eklerken Bir Hata Oluştu",
                     "type"  => "error"
                 );
             }
 
 
             $this->session->set_flashdata("alert", $alert);
-
             redirect(base_url("users"));
 
             die();
@@ -212,7 +211,7 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
-                    "text" => "Kayıt başarılı bir şekilde güncellendi",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Güncellendi",
                     "type"  => "success"
                 );
 
@@ -220,14 +219,13 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Kayıt Güncelleme sırasında bir problem oluştu",
+                    "message"  => "Güncelleme Sırasında Hata Oluştu",
                     "type"  => "error"
                 );
             }
 
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
-
             redirect(base_url("users"));
 
         } else {
@@ -283,7 +281,7 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarılı",
-                    "text" => "Şifreniz başarılı bir şekilde güncellendi",
+                    "message"  => "Kayıt Başarılı Bir Şekilde Güncellendi",
                     "type"  => "success"
                 );
 
@@ -291,14 +289,13 @@ class Users extends CI_Controller
 
                 $alert = array(
                     "title" => "İşlem Başarısız",
-                    "text" => "Şifre Güncelleme sırasında bir problem oluştu",
+                    "message"  => "Güncelleme Sırasında Hata Oluştu",
                     "type"  => "error"
                 );
             }
 
             // İşlemin Sonucunu Session'a yazma işlemi...
             $this->session->set_flashdata("alert", $alert);
-
             redirect(base_url("users"));
 
         } else {
@@ -335,7 +332,7 @@ class Users extends CI_Controller
 
             $alert = array(
                 "title" => "İşlem Başarılı",
-                "text" => "Kayıt başarılı bir şekilde silindi",
+                "message"  => "Kayıt Başarılı Bir Şekilde Silindi",
                 "type"  => "success"
             );
 
@@ -343,7 +340,7 @@ class Users extends CI_Controller
 
             $alert = array(
                 "title" => "İşlem Başarısız",
-                "text" => "Kayıt silme sırasında bir problem oluştu",
+                "message"  => "Silme İşlemi Sırasında Hata Oluştu",
                 "type"  => "error"
             );
 
