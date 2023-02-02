@@ -19,8 +19,8 @@
                         <label>Açıklama</label>
                         <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success btn-md">Kaydet</button>
-                    <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger">İptal</a>
+                    <button type="submit" class="btn btn-success btn-md"><b>Ekle</b></button>
+                    <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger"><b>İptal</b></a>
                 </form>
             </div><!-- .widget-body -->
         </div>

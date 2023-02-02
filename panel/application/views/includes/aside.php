@@ -87,6 +87,13 @@
                 </li>
 
                 <li>
+                    <a href="<?php echo base_url('warehouse'); ?>">
+                        <i class="menu-icon fa fa-industry"></i>
+                        <span class="menu-text">Depolar</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?php echo base_url('shelves'); ?>">
                         <i class="menu-icon fa fa-th"></i>
                         <span class="menu-text">Raflar</span>
@@ -108,7 +115,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url('users'); ?>">
                         <i class="menu-icon fa fa-users"></i>
                         <span class="menu-text">Kullanıcılar</span>
                     </a>

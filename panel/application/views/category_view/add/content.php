@@ -15,8 +15,8 @@
                             <small class="input-form-error"><?php echo form_error('category_name'); ?></small>
                         <?php } ?>
                     </div>
-                    <button type="submit" class="btn btn-success btn-md">Ekle</button>
-                    <a href="<?php echo base_url('category'); ?>" class="btn btn-md btn-danger">İptal</a>
+                    <button type="submit" class="btn btn-success btn-md"><b>Ekle</b></button>
+                    <a href="<?php echo base_url('category'); ?>" class="btn btn-md btn-danger"><b>İptal</b></a>
                 </form>
             </div><!-- .widget-body -->
         </div>
