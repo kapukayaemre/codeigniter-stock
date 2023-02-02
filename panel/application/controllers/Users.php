@@ -80,7 +80,7 @@ class Users extends CI_Controller
                 )
             );
 
-            // TODO Alert sistemi eklenecek...
+            
             if($insert){
 
                 $alert = array(
@@ -207,7 +207,7 @@ class Users extends CI_Controller
                 )
             );
 
-            // TODO Alert sistemi eklenecek...
+
             if($update){
 
                 $alert = array(
@@ -278,7 +278,7 @@ class Users extends CI_Controller
                 )
             );
 
-            // TODO Alert sistemi eklenecek...
+            
             if($update){
 
                 $alert = array(
@@ -330,7 +330,7 @@ class Users extends CI_Controller
             )
         );
 
-        // TODO Alert Sistemi Eklenecek...
+        
         if($delete){
 
             $alert = array(

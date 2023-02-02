@@ -141,7 +141,7 @@ class Product extends CI_Controller {
                     
                 )
             );
-            // TODO Alert Sistemi Eklenecek
+            
             if ($update){
                 redirect(base_url('product'));
             } else {
@@ -179,7 +179,7 @@ class Product extends CI_Controller {
             )
         );
 
-        // TODO Alert Sistemi Eklenecek...
+        
         
         if($delete) {
 
