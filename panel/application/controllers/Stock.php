@@ -1,13 +1,13 @@
 <?php
 
-class Sub_category extends CI_Controller {
+class Stock extends CI_Controller {
 
     public $viewFolder = "";
     public function __construct() {
         
         parent::__construct();
-        $this->viewFolder = 'sub_category_view';
-        $this->load->model('sub_category_model');
+        $this->viewFolder = 'stock_view';
+        $this->load->model('stock_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -17,28 +17,23 @@ class Sub_category extends CI_Controller {
 
     //! Listeleme icin viewe gönderilenler
     public function index(){
-
+        
         $viewData = new stdClass();
-        $items = $this->sub_category_model->get_all();
-        $result = $this->sub_category_model->list_join();
+        $items = $this->stock_model->get_all();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
         $viewData->items = $items;
-        $viewData->result = $result;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
-    //! Yeni Kategori Ekleme Arayüzü
+    //! Yeni Kategori Ekleme
     public function new_form(){
 
         $viewData = new stdClass();
-        $result = $this->sub_category_model->add_join();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
-        $viewData->result = $result;
-        
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -48,7 +43,7 @@ class Sub_category extends CI_Controller {
     public function save(){
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adı', 'required|trim');
+        $this->form_validation->set_rules('stockcard_id', 'Stok Kartı', 'required|trim');
         $this->form_validation->set_message(
             array(
                 'required' => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -60,13 +55,12 @@ class Sub_category extends CI_Controller {
         //! Veritabanına Kayıt İşlemleri ve Kontrolleri
 
         if($validate) {
-            $insert = $this->sub_category_model->add(
+            $insert = $this->stock_model->add(
                 array(
-                    'sub_category_name'     => $this->input->post('sub_category_name'),
-                    'category_id'           => $this->input->post('category_id'),
-                    'user_id'               => $this->session->user->id,
-                    'createdAt'             => date('Y-m-d H:i:s'),
-                    'isActive'              => 1
+                    'stock_name'     => $this->input->post('stock_name'),
+                    'user_id'           => $this->session->user->id,
+                    'createdAt'         => date('Y-m-d H:i:s'),
+                    'isActive'          => 1
 
                 )
             );
@@ -85,10 +79,10 @@ class Sub_category extends CI_Controller {
                     "message"  => "Kayıt Eklerken Bir Hata Oluştu",
                     "type"  => "error"
                 );
-               
+                
             }
             $this->session->set_flashdata("alert", $alert);
-            redirect(base_url('sub_category'));
+            redirect(base_url('stock'));
         
         } else {
 
@@ -108,7 +102,7 @@ class Sub_category extends CI_Controller {
         $viewData = new stdClass();
         
         //! Veritabanından Güncellenecek Dosya 
-        $item = $this->sub_category_model->get(
+        $item = $this->stock_model->get(
             array(
                 'id' => $id
             )
@@ -128,7 +122,7 @@ class Sub_category extends CI_Controller {
     public function update($id){
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adi', 'required|trim');
+        $this->form_validation->set_rules('stock_name', 'Kategori Adi', 'required|trim');
         $this->form_validation->set_message(
             array(
                 'required'  => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -138,18 +132,19 @@ class Sub_category extends CI_Controller {
         $validation = $this->form_validation->run();
 
         if ($validation) {
-            $update = $this->sub_category_model->update(
+            $update = $this->stock_model->update(
                 array(
                     'id' => $id
                 ),
                 array(
-                    'sub_category_name' => $this->input->post('sub_category_name'),
-                    'updatedAt'         => date('Y-m-d H:i:s')
+                    'stock_name' => $this->input->post('stock_name'),
+                    'user_id'       => $this->session->user->id,
+                    'updatedAt'     => date('Y-m-d H:i:s')
                 )
             );
 
             if ($update) {
-
+                
                 $alert = array(
                     "title" => "İşlem Başarılı",
                     "message"  => "Kayıt Başarılı Bir Şekilde Güncellendi",
@@ -163,16 +158,17 @@ class Sub_category extends CI_Controller {
                     "message"  => "Güncelleme Sırasında Hata Oluştu",
                     "type"  => "error"
                 );
-                
+   
             }
+
             $this->session->set_flashdata("alert", $alert);
-            redirect(base_url('sub_category'));
+            redirect(base_url('stock'));
             
         } else {
 
             $viewData = new stdClass();
 
-            $item = $this->sub_category_model->get(
+            $item = $this->stock_model->get(
                 array(
                     'id' => $id
                 )
@@ -190,14 +186,14 @@ class Sub_category extends CI_Controller {
     }
 
     public function delete($id) {
-        $delete = $this->sub_category_model->delete(
+        $delete = $this->stock_model->delete(
             array(
                 'id' => $id
             )
         );
 
         if($delete) {
-            
+
             $alert = array(
                 "title" => "İşlem Başarılı",
                 "message"  => "Kayıt Başarılı Bir Şekilde Silindi",
@@ -214,29 +210,23 @@ class Sub_category extends CI_Controller {
             
         }
         $this->session->set_flashdata("alert", $alert);
-        redirect(base_url('sub_category'));
+        redirect(base_url('stock'));
     }
 
     //! Toggle
-    public function isActiveSetter($id){
-
+    public function isActiveSetter($id) {
         if ($id){
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
-            $this->sub_category_model->update(
+            $this->stock_model->update(
                 array(
-                    "id" => $id
+                    'id' => $id
                 ),
                 array(
-                    "isActive" => $isActive
+                    'isActive' => $isActive
                 )
             );
         }
-
     }
-
-    
-
-    
 
 
 }
