@@ -19,10 +19,26 @@ class Category extends CI_Controller {
     public function index(){
         
         $viewData = new stdClass();
-        $items = $this->category_model->get_all();
+        $datas = $this->category_model->get_all(array(
+            
+            'array'     => true,
+            'select'    => array(
+                
+                "category.id",
+                "category.category_name",
+                "users.full_name",
+                "category.createdAt",
+                "category.updatedAt",
+                "category.deletedAt",
+                "category.isActive",
+            )
+
+        ));
+
+        
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
-        $viewData->items = $items;
+        $viewData->datas = $datas;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -227,6 +243,24 @@ class Category extends CI_Controller {
             );
         }
     }
+
+
+/*     public function deneme(){
+        $data = $this->category_model->get_data(array(
+            "array" => true,
+            "select" => array(
+                "category.id",
+                "category.category_name",
+                "users.full_name",
+                "category.createdAt",
+                "category.updatedAt",
+                "category.deletedAt",
+                "category.isActive",
+            )
+        ));
+        echo "<pre>";
+        print_r($data);
+    } */
 
 
 }
