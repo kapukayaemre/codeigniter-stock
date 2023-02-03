@@ -20,11 +20,9 @@ class Sub_category extends CI_Controller {
 
         $viewData = new stdClass();
         $items = $this->sub_category_model->get_all();
-        $result = $this->sub_category_model->list_join();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
         $viewData->items = $items;
-        $viewData->result = $result;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -34,11 +32,8 @@ class Sub_category extends CI_Controller {
     public function new_form(){
 
         $viewData = new stdClass();
-        $result = $this->sub_category_model->add_join();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
-        $viewData->result = $result;
-        
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -63,7 +58,7 @@ class Sub_category extends CI_Controller {
             $insert = $this->sub_category_model->add(
                 array(
                     'sub_category_name'     => $this->input->post('sub_category_name'),
-                    'category_id'           => $this->input->post('category_id'),
+                    'category_id'           => null,
                     'user_id'               => $this->session->user->id,
                     'createdAt'             => date('Y-m-d H:i:s'),
                     'isActive'              => 1
@@ -143,8 +138,7 @@ class Sub_category extends CI_Controller {
                     'id' => $id
                 ),
                 array(
-                    'sub_category_name' => $this->input->post('sub_category_name'),
-                    'updatedAt'         => date('Y-m-d H:i:s')
+                    'sub_category_name' => $this->input->post('sub_category_name')
                 )
             );
 
@@ -233,8 +227,6 @@ class Sub_category extends CI_Controller {
         }
 
     }
-
-    
 
     
 

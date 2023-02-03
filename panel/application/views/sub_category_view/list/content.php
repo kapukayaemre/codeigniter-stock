@@ -32,34 +32,34 @@
                 <tbody>
                 
                 <?php $i = 0;
-                 foreach ($result as $row) {
+                 foreach ($items as $item) {
                     $i++;
                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $row->sub_category_name; ?></td>
-                        <td><?php echo $row->category_name; ?></td>
-                        <td><?php echo $row->full_name; ?></td>
-                        <td><?php echo $row->createdAt; ?></td>
-                        <td><?php echo $row->updatedAt; ?></td>
-                        <td><?php echo $row->deletedAt;?></td>
+                        <td><?php echo $item->sub_category_name; ?></td>
+                        <td><?php echo $item->category_id; ?></td>
+                        <td><?php echo $item->user_id; ?></td>
+                        <td><?php echo $item->createdAt; ?></td>
+                        <td><?php echo $item->updatedAt; ?></td>
+                        <td><?php echo $item->deletedAt;?></td>
                         <td>
                             <input
-                            data-url = "<?php echo base_url("sub_category/isActiveSetter/$row->id") ?>"
+                            data-url = "<?php echo base_url("sub_category/isActiveSetter/$item->id") ?>"
                             class = "isActive"
                             type = "checkbox" 
                             data-switchery 
                             data-color = "#10c469" 
-                            <?php echo ($row->isActive) ? 'checked' : '' ?>
+                            <?php echo ($item->isActive) ? 'checked' : '' ?>
                             />
                         </td>
                         <td>
                         <button
-                            data-url="<?php echo base_url("sub_category/delete/$row->id"); ?>"
+                            data-url="<?php echo base_url("sub_category/delete/$item->id"); ?>"
                             class="btn btn-sm btn-danger remove-btn">
                             <i class="fa fa-trash"></i> <b>Sil</b>
                             </button>
-                            <a href="<?php echo base_url("sub_category/update_form/$row->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
+                            <a href="<?php echo base_url("sub_category/update_form/$item->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
                         </td>
                     </tr>
                 <?php } ?>
