@@ -12,6 +12,8 @@ class Warehouse_model extends CI_Model{
     }
 
     public function get_all($where = array()){
+
+        
         return $this->db->where($where)->get($this->tableName)->result();
     }
 

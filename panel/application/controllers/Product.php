@@ -8,6 +8,8 @@ class Product extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'product_view';
         $this->load->model('product_model');
+        $this->load->model('category_model');
+        $this->load->model('sub_category_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -20,21 +22,59 @@ class Product extends CI_Controller {
         $viewData = new stdClass();
 
         /* Veritabanındaki Tablodan Verilerin Getirilmesi */
-        $items = $this->product_model->get_all();
-
-        /* View'e Gönderilecek Verilerin Set Edilmesi */
+        $datas = $this->product_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "products.id",
+                    "products.title",
+                    "products.description",
+                    "category.category_name",
+                    "sub_category.sub_category_name",
+                    "users.full_name",
+                    "products.createdAt",
+                    "products.updatedAt",
+                    "products.deletedAt",
+                    "products.isActive"
+                )
+            )
+        );
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
-        $viewData->items = $items;
+        $viewData->datas = $datas;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
+
     /* Yeni Ürün Ekleme */
     public function new_form(){
-
         $viewData = new stdClass();
+
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
+        $datas_sub_category = $this->sub_category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "sub_category.id as sub_category_id",
+                    "sub_category.sub_category_name"
+                )
+            )
+        );
+
+
+        $viewData->datas_main_category = $datas_main_category;
+        $viewData->datas_sub_category = $datas_sub_category;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
 
@@ -63,12 +103,10 @@ class Product extends CI_Controller {
                 array(
                     'title'             => $this->input->post('title'),
                     'description'       => $this->input->post('description'),
-                    'category_id'       => null,
-                    'sub_category_id'   => null,
+                    'category_id'       => $this->input->post('category_id'),
+                    'sub_category_id'   => $this->input->post('sub_category_id'),
                     'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
-                    'updatedAt'         => null,
-                    'deletedAt'         => null,
                     'isActive'          => 1
                 )
             );
@@ -119,10 +157,32 @@ class Product extends CI_Controller {
             )
         );
 
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
+        $datas_sub_category = $this->sub_category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "sub_category.id as sub_category_id",
+                    "sub_category.sub_category_name"
+                )
+            )
+        );
+
         // View'e Gönderileceklerin Set Edilmesi
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
+        $viewData->datas_main_category = $datas_main_category;
+        $viewData->datas_sub_category = $datas_sub_category;
         $viewData->item = $item;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
@@ -154,10 +214,12 @@ class Product extends CI_Controller {
                 array(
                     'title'             => $this->input->post('title'),
                     'description'       => $this->input->post('description'),
-                    'category_id'       => null,
-                    'sub_category_id'   => null
-                    
-                    
+                    'category_id'       => $this->input->post('category_id'),
+                    'sub_category_id'   => $this->input->post('sub_category_id'),
+                    'user_id'           => $this->session->user->id,
+                    'updatedAt'         => date('Y-m-d H:i:s'),
+                    'isActive'          => 1
+
                 )
             );
             
@@ -193,11 +255,34 @@ class Product extends CI_Controller {
                 )
             );
 
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
+
+            $datas_sub_category = $this->sub_category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "sub_category.id as sub_category_id",
+                        "sub_category.sub_category_name"
+                    )
+                )
+            );
+
 
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;
+            $viewData->datas_main_category = $datas_main_category;
+            $viewData->datas_sub_category = $datas_sub_category;
             $viewData->item = $item;
+
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }

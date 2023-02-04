@@ -60,7 +60,7 @@ class Warehouse extends CI_Controller {
                     'warehouse_name'    => $this->input->post('warehouse_name'),
                     'city'              => $this->input->post('city'),
                     'district'          => $this->input->post('district'),
-                    'user_id'           => null,
+                    'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
                     'updatedAt'         => null,
                     'deletedAt'         => null,
