@@ -15,6 +15,17 @@
                             <small class="input-form-error"><?php echo form_error('sub_category_name'); ?></small>
                         <?php } ?>
                     </div>
+
+                    <div class="form-group">
+                        <label>Ana Kategorisi</label><br>
+                        <select class="form-control" data-plugin="select2" name="category_id">
+                            <option Selected>Seçmek için tıklayınız...</option>
+                            <?php foreach ($datas_main_category as $data) { ?>
+                                <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
+                            <?php } ?>
+                        </select>
+                        <!-- END column -->
+                    </div>
                     
                     <button type="submit" class="btn btn-success btn-md">Güncelle</button>
                     <a href="<?php echo base_url('sub_category'); ?>" class="btn btn-md btn-danger">İptal</a>

@@ -8,6 +8,7 @@ class Sub_category extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'sub_category_view';
         $this->load->model('sub_category_model');
+        $this->load->model('category_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -19,10 +20,24 @@ class Sub_category extends CI_Controller {
     public function index(){
 
         $viewData = new stdClass();
-        $items = $this->sub_category_model->get_all();
+        $datas = $this->sub_category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "sub_category.id",
+                    "sub_category.sub_category_name",
+                    "category.category_name",
+                    "users.full_name",
+                    "sub_category.createdAt",
+                    "sub_category.updatedAt",
+                    "sub_category.deletedAt",
+                    "sub_category.isActive"
+                )
+            )
+        );
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
-        $viewData->items = $items;
+        $viewData->datas = $datas;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -32,9 +47,20 @@ class Sub_category extends CI_Controller {
     public function new_form(){
 
         $viewData = new stdClass();
+
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array' => true,
+                'select' => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
+        $viewData->datas_main_category = $datas_main_category;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
-
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
@@ -58,7 +84,7 @@ class Sub_category extends CI_Controller {
             $insert = $this->sub_category_model->add(
                 array(
                     'sub_category_name'     => $this->input->post('sub_category_name'),
-                    'category_id'           => null,
+                    'category_id'           => $this->input->post('category_id'),
                     'user_id'               => $this->session->user->id,
                     'createdAt'             => date('Y-m-d H:i:s'),
                     'isActive'              => 1
@@ -110,7 +136,18 @@ class Sub_category extends CI_Controller {
 
         );
 
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array' => true,
+                'select' => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
         //! View'e Gönderilecek Veriler
+        $viewData->datas_main_category = $datas_main_category;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
@@ -138,7 +175,11 @@ class Sub_category extends CI_Controller {
                     'id' => $id
                 ),
                 array(
-                    'sub_category_name' => $this->input->post('sub_category_name')
+                    'sub_category_name' => $this->input->post('sub_category_name'),
+                    'category_id'       => $this->input->post('category_id'),
+                    'user_id'           => $this->session->user->id,
+                    'updatedAt'         => date('Y-m-d H:i:s'),
+                    'isActive'          =>  1
                 )
             );
 
