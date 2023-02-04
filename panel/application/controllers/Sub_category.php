@@ -114,6 +114,19 @@ class Sub_category extends CI_Controller {
         } else {
 
             $viewData = new stdClass();
+
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array' => true,
+                    'select' => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
+
+
+            $viewData->datas_main_category = $datas_main_category;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true; //! Alertler İçin True olarak yönlendirildi.
@@ -213,6 +226,18 @@ class Sub_category extends CI_Controller {
                 )
             );
 
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array' => true,
+                    'select' => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
+
+
+            $viewData->datas_main_category = $datas_main_category;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;

@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -9,7 +10,7 @@
     <div class="col-md-12">
         <div class="widget p-lg">
 
-        <?php if (empty($items)) { ?>
+        <?php if (empty($datas)) { ?>
         <div class="alert alert-info text-center">
                 <h5 class="alert-title">Kayıt Bulunamadı</h5>
                 <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a href="<?php echo base_url('shelves/new_form'); ?>"><strong>tıklayınız.</strong></a></p>
@@ -33,35 +34,35 @@
                 <tbody>
                 
                 <?php $i = 0;
-                 foreach ($items as $item) {
+                 foreach ($datas as $data) {
                     $i++;
                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $item->shelves_name; ?></td>
-                        <td><?php echo $item->warehouse_id; ?></td>
-                        <td><?php echo $item->product_id; ?></td>
-                        <td><?php echo $item->user_id; ?></td>
-                        <td><?php echo $item->createdAt; ?></td>
-                        <td><?php echo $item->updatedAt; ?></td>
-                        <td><?php echo $item->deletedAt;?></td>
+                        <td><?php echo $data->shelves_name; ?></td>
+                        <td><?php echo $data->warehouse_name; ?></td>
+                        <td><?php echo $data->title; ?></td>
+                        <td><?php echo $data->full_name; ?></td>
+                        <td><?php echo $data->createdAt; ?></td>
+                        <td><?php echo $data->updatedAt; ?></td>
+                        <td><?php echo $data->deletedAt;?></td>
                         <td>
                             <input
-                            data-url = "<?php echo base_url("shelves/isActiveSetter/$item->id") ?>"
+                            data-url = "<?php echo base_url("shelves/isActiveSetter/$data->id") ?>"
                             class = "isActive"
                             type = "checkbox" 
                             data-switchery 
                             data-color = "#10c469" 
-                            <?php echo ($item->isActive) ? 'checked' : '' ?>
+                            <?php echo ($data->isActive) ? 'checked' : '' ?>
                             />
                         </td>
                         <td>
                         <button
-                            data-url="<?php echo base_url("shelves/delete/$item->id"); ?>"
+                            data-url="<?php echo base_url("shelves/delete/$data->id"); ?>"
                             class="btn btn-sm btn-danger remove-btn">
                             <i class="fa fa-trash"></i> <b>Sil</b>
                             </button>
-                            <a href="<?php echo base_url("shelves/update_form/$item->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
+                            <a href="<?php echo base_url("shelves/update_form/$data->id"); ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i><b> Düzenle </b></a>
                         </td>
                     </tr>
                 <?php } ?>

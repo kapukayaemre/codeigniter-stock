@@ -134,6 +134,32 @@ class Product extends CI_Controller {
 
         } else {
             $viewData = new stdClass();
+
+            //! Eğer Validation dan geçemezse select boxda tekrar seçeneklerin gelmesi için
+
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
+    
+            $datas_sub_category = $this->sub_category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "sub_category.id as sub_category_id",
+                        "sub_category.sub_category_name"
+                    )
+                )
+            );
+    
+    
+            $viewData->datas_main_category = $datas_main_category;
+            $viewData->datas_sub_category = $datas_sub_category;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true;

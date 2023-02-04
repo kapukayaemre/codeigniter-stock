@@ -8,6 +8,7 @@ class Warehouse extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'warehouse_view';
         $this->load->model('warehouse_model');
+        $this->load->model('user_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -19,10 +20,25 @@ class Warehouse extends CI_Controller {
     public function index(){
 
         $viewData = new stdClass();
-        $items = $this->warehouse_model->get_all();
+        $datas = $this->warehouse_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "warehouse.id",
+                    "warehouse.warehouse_name",
+                    "warehouse.city",
+                    "warehouse.district",
+                    "users.full_name",
+                    "warehouse.createdAt",
+                    "warehouse.updatedAt",
+                    "warehouse.deletedAt",
+                    "warehouse.isActive",
+                )
+            )
+        );
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
-        $viewData->items = $items;
+        $viewData->datas = $datas;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -62,8 +78,6 @@ class Warehouse extends CI_Controller {
                     'district'          => $this->input->post('district'),
                     'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
-                    'updatedAt'         => null,
-                    'deletedAt'         => null,
                     'isActive'          => 1
 
                 )
@@ -143,9 +157,10 @@ class Warehouse extends CI_Controller {
                     'id' => $id
                 ),
                 array(
-                    'warehouse_name' => $this->input->post('warehouse_name'),
-                    'city' => $this->input->post('city'),
-                    'district' => $this->input->post('district')
+                    'warehouse_name'    => $this->input->post('warehouse_name'),
+                    'city'              => $this->input->post('city'),
+                    'district'          => $this->input->post('district'),
+                    'updatedAt'         =>date('Y-m-d H:i:s')
                 )
             );
 

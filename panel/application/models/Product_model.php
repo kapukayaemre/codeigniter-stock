@@ -86,7 +86,6 @@ class Product_model extends CI_Model {
             "array",
             "select",
             "where"
-
         );
         return elements($result, $datas);
     }
