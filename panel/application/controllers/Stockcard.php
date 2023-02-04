@@ -8,6 +8,10 @@ class Stockcard extends CI_Controller {
         parent::__construct();
         $this->viewFolder = 'stockcard_view';
         $this->load->model('stockcard_model');
+        $this->load->model('category_model');
+        $this->load->model('sub_category_model');
+        $this->load->model('product_model');
+        $this->load->model('user_model');
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -20,12 +24,31 @@ class Stockcard extends CI_Controller {
         $viewData = new stdClass();
 
         /* Veritabanındaki Tablodan Verilerin Getirilmesi */
-        $items = $this->stockcard_model->get_all();
+        $datas = $this->stockcard_model->get_all(
+
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "stockcards.id",
+                    "stockcards.stockcard_title",
+                    "category.category_name",
+                    "sub_category.sub_category_name",
+                    "products.title",
+                    "users.full_name",
+                    "stockcards.createdAt",
+                    "stockcards.updatedAt",
+                    "stockcards.deletedAt",
+                    "stockcards.isActive"
+
+                )
+            )
+
+        );
 
         /* View'e Gönderilecek Verilerin Set Edilmesi */
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
-        $viewData->items = $items;
+        $viewData->datas = $datas;
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -35,6 +58,41 @@ class Stockcard extends CI_Controller {
     public function new_form(){
 
         $viewData = new stdClass();
+
+
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
+        $datas_sub_category = $this->sub_category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "sub_category.id as sub_category_id",
+                    "sub_category.sub_category_name"
+                )
+            )
+        );
+
+        $datas_product = $this->product_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "products.id as product_id",
+                    "products.title as product_name"
+                )
+            )
+        );
+
+        $viewData->datas_main_category = $datas_main_category;
+        $viewData->datas_sub_category = $datas_sub_category;
+        $viewData->datas_product = $datas_product;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
 
@@ -62,8 +120,9 @@ class Stockcard extends CI_Controller {
             $insert = $this->stockcard_model->add(
                 array(
                     'stockcard_title'       => $this->input->post('stockcard_title'),
-                    'category_id'           => null,
-                    'sub_category_id'       => null,
+                    'category_id'           => $this->input->post('category_id'),
+                    'sub_category_id'       => $this->input->post('sub_category_id'),
+                    'product_id'            => $this->input->post('product_id'),
                     'user_id'               => $this->session->user->id,
                     'createdAt'             => date('Y-m-d H:i:s'),
                     'isActive'              => 1
@@ -93,6 +152,41 @@ class Stockcard extends CI_Controller {
 
         } else {
             $viewData = new stdClass();
+
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
+
+            $datas_sub_category = $this->sub_category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "sub_category.id as sub_category_id",
+                        "sub_category.sub_category_name"
+                    )
+                )
+            );
+
+            $datas_product = $this->product_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "products.id as product_id",
+                        "products.title as product_name"
+                    )
+                )
+            );
+
+
+            $viewData->datas_main_category = $datas_main_category;
+            $viewData->datas_sub_category = $datas_sub_category;
+            $viewData->datas_product = $datas_product;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true;
@@ -116,8 +210,40 @@ class Stockcard extends CI_Controller {
             )
         );
 
-        // View'e Gönderileceklerin Set Edilmesi
 
+        $datas_main_category = $this->category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "category.id as category_id",
+                    "category.category_name"
+                )
+            )
+        );
+
+        $datas_sub_category = $this->sub_category_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "sub_category.id as sub_category_id",
+                    "sub_category.sub_category_name"
+                )
+            )
+        );
+
+        $datas_product = $this->product_model->get_all(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "products.id as product_id",
+                    "products.title as product_name"
+                )
+            )
+        );
+
+        $viewData->datas_main_category = $datas_main_category;
+        $viewData->datas_sub_category = $datas_sub_category;
+        $viewData->datas_product = $datas_product;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
@@ -150,10 +276,12 @@ class Stockcard extends CI_Controller {
 
                 array(
                     'stockcard_title'       => $this->input->post('stockcard_title'),
-                    'category_id'           => null,
-                    'sub_category_id'       => null,
+                    'category_id'           => $this->input->post('category_id'),
+                    'sub_category_id'       => $this->input->post('sub_category_id'),
+                    'product_id'            => $this->input->post('product_id'),
                     'user_id'               => $this->session->user->id,
-                    'updatedAt'             => date('Y-m-d H:i:s')
+                    'updatedAt'             => date('Y-m-d H:i:s'),
+                    'isActive'              => 1
 
                 )
             );
@@ -190,7 +318,39 @@ class Stockcard extends CI_Controller {
                 )
             );
 
+            $datas_main_category = $this->category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "category.id as category_id",
+                        "category.category_name"
+                    )
+                )
+            );
 
+            $datas_sub_category = $this->sub_category_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "sub_category.id as sub_category_id",
+                        "sub_category.sub_category_name"
+                    )
+                )
+            );
+
+            $datas_product = $this->product_model->get_all(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "products.id as product_id",
+                        "products.title as product_name"
+                    )
+                )
+            );
+
+            $viewData->datas_main_category = $datas_main_category;
+            $viewData->datas_sub_category = $datas_sub_category;
+            $viewData->datas_product = $datas_product;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;
