@@ -146,7 +146,6 @@ class Sub_category extends CI_Controller {
             array(
                 'id' => $id
             )
-
         );
 
         $datas_main_category = $this->category_model->get_all(

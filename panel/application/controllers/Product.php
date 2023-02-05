@@ -87,7 +87,7 @@ class Product extends CI_Controller {
         // Kütüphane çağırılır ->
         $this->load->library('form_validation');
         // Kurallar tanımlanır ->     // Parametre olarak formdaki name, başlık, kurallar
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('title', 'Ürün Adı', 'required|trim');
 
         $this->form_validation->set_message(
             array(
