@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                         <label>Stok Adeti</label>
-                        <input class="form-control" placeholder="Adet Giriniz" name="total">
+                        <input class="form-control" placeholder="Adet Giriniz" name="total" value="<?php echo $item->total; ?>">
                         <?php if (isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('total'); ?></small>
                         <?php } ?>
@@ -53,7 +53,9 @@
 
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 200}"></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 200}">
+                            <?php echo $item->description; ?>
+                        </textarea>
                         <?php if (isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('description'); ?></small>
                         <?php } ?>

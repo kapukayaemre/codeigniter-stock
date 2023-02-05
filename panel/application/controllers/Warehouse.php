@@ -209,6 +209,10 @@ class Warehouse extends CI_Controller {
         $delete = $this->warehouse_model->delete(
             array(
                 'id' => $id
+            ),
+            array(
+                'deletedAt' => date('Y-m-d H:i:s'),
+                'user_id'   => $this->session->user->id
             )
         );
 

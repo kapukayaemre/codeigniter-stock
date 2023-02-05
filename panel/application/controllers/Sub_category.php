@@ -253,6 +253,10 @@ class Sub_category extends CI_Controller {
         $delete = $this->sub_category_model->delete(
             array(
                 'id' => $id
+            ),
+            array(
+                'deletedAt' => date('Y-m-d H:i:s'),
+                'user_id'   => $this->session->user->id
             )
         );
 

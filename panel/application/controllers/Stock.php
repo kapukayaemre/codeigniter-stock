@@ -312,7 +312,7 @@ class Stock extends CI_Controller {
                     'id' => $id
                 )
             );
-            
+
             $datas_stockcard = $this->stockcard_model->get_all(
                 array(
                     'array'     => true,
@@ -362,6 +362,10 @@ class Stock extends CI_Controller {
         $delete = $this->stock_model->delete(
             array(
                 'id' => $id
+            ),
+            array(
+                'deletedAt' => date('Y-m-d H:i:s'),
+                'user_id'   => $this->session->user->id
             )
         );
 

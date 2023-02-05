@@ -205,6 +205,10 @@ class Category extends CI_Controller {
         $delete = $this->category_model->delete(
             array(
                 'id' => $id
+            ),
+            array(
+                'deletedAt' => date('Y-m-d H:i:s'),
+                'user_id'   => $this->session->user->id
             )
         );
 
@@ -243,24 +247,6 @@ class Category extends CI_Controller {
             );
         }
     }
-
-
-/*     public function deneme(){
-        $data = $this->category_model->get_data(array(
-            "array" => true,
-            "select" => array(
-                "category.id",
-                "category.category_name",
-                "users.full_name",
-                "category.createdAt",
-                "category.updatedAt",
-                "category.deletedAt",
-                "category.isActive",
-            )
-        ));
-        echo "<pre>";
-        print_r($data);
-    } */
 
 
 }
