@@ -19,21 +19,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label>İlgili Depo Adı</label><br>
+                        <label>Depo Adı</label><br>
                         <select class="form-control" data-plugin="select2" name="warehouse_id">
                             <option Selected>Seçmek için tıklayınız...</option>
                             <?php foreach ($datas_warehouse as $data) { ?>
                                 <option value="<?php echo $data->warehouse_id; ?>"><?php echo $data->warehouse_name; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ürün Adı</label><br>
-                        <select class="form-control" data-plugin="select2" name="product_id">
-                            <option Selected>Seçmek için tıklayınız...</option>
-                            <?php foreach ($datas_product as $data) { ?>
-                                <option value="<?php echo $data->product_id; ?>"><?php echo $data->product_name; ?></option>
                             <?php } ?>
                         </select>
                     </div>

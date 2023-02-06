@@ -78,7 +78,7 @@
                 <li>
                     <a href="<?php echo base_url('product'); ?>">
                         <i class="menu-icon fa fa-dropbox"></i>
-                        <span class="menu-text">Ürünler</span>
+                        <span class="menu-text">Stok Kartları</span>
                     </a>
                 </li>
 
@@ -100,13 +100,6 @@
                     <a href="<?php echo base_url('stock'); ?>">
                         <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
                         <span class="menu-text">Stoklar</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url('stockcard'); ?>">
-                        <i class="menu-icon fa fa-newspaper-o"></i>
-                        <span class="menu-text">Stok Kartları</span>
                     </a>
                 </li>
 

@@ -22,7 +22,6 @@
                     <th>#</th>
                     <th>Raf Adı</th>
                     <th>İlgili Depo Adı</th>
-                    <th>Ürün Adı</th>
                     <th>Sorumlu</th>
                     <th>Kayıt Tarihi</th>
                     <th>Düzenlenme Tarihi</th>
@@ -41,7 +40,6 @@
                         <td><?php echo $i; ?></td>
                         <td><?php echo $data->shelves_name; ?></td>
                         <td><?php echo $data->warehouse_name; ?></td>
-                        <td><?php echo $data->title; ?></td>
                         <td><?php echo $data->full_name; ?></td>
                         <td><?php echo $data->createdAt; ?></td>
                         <td><?php echo $data->updatedAt; ?></td>

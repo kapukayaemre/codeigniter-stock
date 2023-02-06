@@ -18,24 +18,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label>İlgili Depo Adı</label><br>
-                        <select class="form-control" data-plugin="select2" name="warehouse_id">
-                            <option Selected>Seçmek için tıklayınız...</option>
+                        <label>Ana Kategorisi</label><br>
+                        <select class="form-control" data-plugin="select2" name="category_id">        
                             <?php foreach ($datas_warehouse as $data) { ?>
+                                <?php if ($data->warehouse_id == $item->warehouse_id) { ?>
+                                    <option selected value="<?php echo $data->warehouse_id; ?>"><?php echo $data->warehouse_name; ?></option>
+                                <?php } else { ?>
                                 <option value="<?php echo $data->warehouse_id; ?>"><?php echo $data->warehouse_name; ?></option>
-                            <?php } ?>
+                                <?php } ?>
+                            <?php } ?>        
                         </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ürün Adı</label><br>
-                        <select class="form-control" data-plugin="select2" name="product_id">
-                            <option Selected>Seçmek için tıklayınız...</option>
-                            <?php foreach ($datas_product as $data) { ?>
-                                <option value="<?php echo $data->product_id; ?>"><?php echo $data->product_name; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                    </div>     
                     
                     <button type="submit" class="btn btn-success btn-md">Güncelle</button>
                     <a href="<?php echo base_url('shelves'); ?>" class="btn btn-md btn-danger">İptal</a>

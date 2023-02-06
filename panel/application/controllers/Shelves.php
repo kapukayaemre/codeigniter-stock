@@ -9,7 +9,6 @@ class Shelves extends CI_Controller {
         $this->viewFolder = 'shelves_view';
         $this->load->model('shelves_model');
         $this->load->model('warehouse_model');
-        $this->load->model('product_model');
         $this->load->model('user_model');
 
         if(!get_active_user()){
@@ -29,7 +28,6 @@ class Shelves extends CI_Controller {
                     'shelves.id',
                     'shelves.shelves_name',
                     'warehouse.warehouse_name',
-                    'products.title',
                     'users.full_name',
                     'shelves.createdAt',
                     'shelves.updatedAt',
@@ -62,18 +60,7 @@ class Shelves extends CI_Controller {
             )
         );
 
-        $datas_product = $this->product_model->get_all(
-            array(
-                'array'     => true,
-                'select'    => array(
-                    'products.id as product_id',
-                    'products.title as product_name'
-                )
-            )
-        );
-
         $viewData->datas_warehouse = $datas_warehouse;
-        $viewData->datas_product = $datas_product;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
 
@@ -101,7 +88,6 @@ class Shelves extends CI_Controller {
                 array(
                     'shelves_name'      => $this->input->post('shelves_name'),
                     'warehouse_id'      => $this->input->post('warehouse_id'),
-                    'product_id'        => $this->input->post('product_id'),
                     'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
                     'isActive'          => 1
@@ -142,18 +128,7 @@ class Shelves extends CI_Controller {
                 )
             );
 
-            $datas_product = $this->product_model->get_all(
-                array(
-                    'array'     => true,
-                    'select'    => array(
-                        'products.id as product_id',
-                        'products.title as product_name'
-                    )
-                )
-            );
-
             $viewData->datas_warehouse = $datas_warehouse;
-            $viewData->datas_product = $datas_product;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true; //! Alertler İçin True olarak yönlendirildi.
@@ -184,21 +159,9 @@ class Shelves extends CI_Controller {
                 )
             )
         );
-
-        $datas_product = $this->product_model->get_all(
-            array(
-                'array'     => true,
-                'select'    => array(
-                    'products.id as product_id',
-                    'products.title as product_name'
-                )
-            )
-        );
-
-        $viewData->datas_warehouse = $datas_warehouse;
-        $viewData->datas_product = $datas_product;
-
+        
         //! View'e Gönderilecek Veriler
+        $viewData->datas_warehouse = $datas_warehouse;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
@@ -228,7 +191,6 @@ class Shelves extends CI_Controller {
                 array(
                     'shelves_name'  => $this->input->post('shelves_name'),
                     'warehouse_id'  => $this->input->post('warehouse_id'),
-                    'product_id'    => $this->input->post('product_id'),
                     'user_id'       => $this->session->user->id,
                     'updatedAt'     => date('Y-m-d H:i:s'),
                     'isActive'      => 1
@@ -274,18 +236,7 @@ class Shelves extends CI_Controller {
                 )
             );
 
-            $datas_product = $this->product_model->get_all(
-                array(
-                    'array'     => true,
-                    'select'    => array(
-                        'products.id as product_id',
-                        'products.title as product_name'
-                    )
-                )
-            );
-
             $viewData->datas_warehouse = $datas_warehouse;
-            $viewData->datas_product = $datas_product;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;
