@@ -363,5 +363,10 @@ class Product extends CI_Controller {
 
     }
 
+    public function subCategory($id){
+        $subCategoryResult = $this->db->where('category_id',$id)->get('sub_category')->result_array();
+        echo json_encode($subCategoryResult);
+    }
+
 
 }

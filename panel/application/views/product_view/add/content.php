@@ -1,4 +1,6 @@
 <?php //echo "<pre>"; print_r($datas_sub_category); ?>
+<?php //echo "<pre>"; print_r($datas_main_category); ?>
+
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -20,7 +22,7 @@
 
                     <div class="form-group">
                         <label>Ana Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" id="category" onchange="get_subcategory()" name="category_id">
+                        <select class="form-control" data-plugin="select2" id="category" name="category_id">
                             <option Selected>Seçmek için tıklayınız...</option>
                             <?php foreach ($datas_main_category as $data) { ?>
                                 <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
@@ -47,12 +49,8 @@
                     <button type="submit" class="btn btn-success btn-md"><b>Ekle</b></button>
                     <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger"><b>İptal</b></a>
                 </form>
-                <script>
-                    function get_subcategory() {
-                        var category = $(#category).val(); 
-                    }
-                </script>
             </div><!-- .widget-body -->
         </div>
     </div>
 </div>
+

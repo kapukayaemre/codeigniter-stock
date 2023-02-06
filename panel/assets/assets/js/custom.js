@@ -20,6 +20,7 @@ $(document).ready(function () {
     });
   });
 
+
   $(".isActive").change(function(){
 
     var $data = $(this).prop("checked");
