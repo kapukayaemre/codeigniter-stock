@@ -35,5 +35,35 @@
 
 <!-- build:js ../assets/js/core.min.js -->
 <?php $this->load->view('includes/include_script'); ?>
+
+<script>
+
+    //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
+    $(document).ready(function () {
+    $('select[name=city_id]').on('change', function (){
+    var id = $(this).val();
+    if (id) {
+      $.ajax({
+        url : "<?php echo base_url('warehouse') ?>/" + id,    
+        type : 'GET',
+        dataType : 'json',
+        success : function(data) {
+          $('select[name = "town_id"]').empty();
+          $('select[name = "town_id"]').append('<option value=" ">' + 'Seçmek için tıklayınız...' + '</option>');
+          $.each(data, function (key, value)
+          {
+            $('select[name = "town_id"]').append('<option value=" ' + value.town_id +' ">' + value.town_name + '</option>');
+          });
+        }
+      });
+    } else {
+      $('select[name = "town_id"]').empty();
+
+    }
+  });
+});
+
+</script>
+
 </body>
 </html>

@@ -9,6 +9,7 @@ class Warehouse extends CI_Controller {
         $this->viewFolder = 'warehouse_view';
         $this->load->model('warehouse_model');
         $this->load->model('user_model');
+        
 
         if(!get_active_user()){
 			redirect(base_url('login'));
@@ -26,8 +27,10 @@ class Warehouse extends CI_Controller {
                 'select'    => array(
                     "warehouse.id",
                     "warehouse.warehouse_name",
-                    "warehouse.city",
-                    "warehouse.district",
+                    "city.city_id",
+                    "city.city_name",
+                    "town.town_id",
+                    "town.town_name",
                     "users.full_name",
                     "warehouse.createdAt",
                     "warehouse.updatedAt",
@@ -48,6 +51,29 @@ class Warehouse extends CI_Controller {
     public function new_form(){
 
         $viewData = new stdClass();
+
+        $datas_city = $this->warehouse_model->get_all_city(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "city.city_id as city_id",
+                    "city.city_name as city_name"
+                )
+            )
+        );
+
+        $datas_town = $this->warehouse_model->get_all_town(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "town.town_id as town_id",
+                    "town.town_name as town_name"
+                )
+            )
+        );
+
+        $viewData->datas_city = $datas_city;
+        $viewData->datas_town = $datas_town;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
 
@@ -74,8 +100,8 @@ class Warehouse extends CI_Controller {
             $insert = $this->warehouse_model->add(
                 array(
                     'warehouse_name'    => $this->input->post('warehouse_name'),
-                    'city'              => $this->input->post('city'),
-                    'district'          => $this->input->post('district'),
+                    'city_id'           => $this->input->post('city_id'),
+                    'town_id'           => $this->input->post('town_id'),
                     'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
                     'isActive'          => 1
@@ -100,15 +126,38 @@ class Warehouse extends CI_Controller {
                 
             }
             $this->session->set_flashdata("alert", $alert);
-            redirect(base_url('warehouse'));
+            redirect(base_url('warehouse/'));
         
         } else {
 
             $viewData = new stdClass();
+
+            $datas_city = $this->warehouse_model->get_all_city(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "city.city_id as city_id",
+                        "city.city_name as city_name"
+                    )
+                )
+            );
+    
+            $datas_town = $this->warehouse_model->get_all_town(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "town.town_id as town_id",
+                        "town.town_name as town_name"
+                    )
+                )
+            );
+    
+            $viewData->datas_city = $datas_city;
+            $viewData->datas_town = $datas_town;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true; //! Alertler İçin True olarak yönlendirildi.
-
+            
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
         }        
@@ -127,7 +176,29 @@ class Warehouse extends CI_Controller {
 
         );
 
+        $datas_city = $this->warehouse_model->get_all_city(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "city.city_id as city_id",
+                    "city.city_name as city_name"
+                )
+            )
+        );
+
+        $datas_town = $this->warehouse_model->get_all_town(
+            array(
+                'array'     => true,
+                'select'    => array(
+                    "town.town_id as town_id",
+                    "town.town_name as town_name"
+                )
+            )
+        );
+
         //! View'e Gönderilecek Veriler
+        $viewData->datas_city = $datas_city;
+        $viewData->datas_town = $datas_town;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
@@ -141,8 +212,8 @@ class Warehouse extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('warehouse_name', 'Kategori Adı', 'required|trim');
-        $this->form_validation->set_rules('city', 'Şehir Adı', 'required|trim');
-        $this->form_validation->set_rules('district', 'İlçe Adı', 'required|trim');
+        $this->form_validation->set_rules('city_id', 'Şehir Adı', 'required|trim');
+        $this->form_validation->set_rules('town_id', 'İlçe Adı', 'required|trim');
         $this->form_validation->set_message(
             array(
                 'required'  => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -158,9 +229,10 @@ class Warehouse extends CI_Controller {
                 ),
                 array(
                     'warehouse_name'    => $this->input->post('warehouse_name'),
-                    'city'              => $this->input->post('city'),
-                    'district'          => $this->input->post('district'),
-                    'updatedAt'         =>date('Y-m-d H:i:s')
+                    'city_id'           => $this->input->post('city_id'),
+                    'town_id'           => $this->input->post('town_id'),
+                    'user_id'           => $this->session->user->id,
+                    'updatedAt'         => date('Y-m-d H:i:s')
                 )
             );
 
@@ -194,6 +266,28 @@ class Warehouse extends CI_Controller {
                 )
             );
 
+            $datas_city = $this->warehouse_model->get_all_city(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "city.city_id as city_id",
+                        "city.city_name as city_name"
+                    )
+                )
+            );
+    
+            $datas_town = $this->warehouse_model->get_all_town(
+                array(
+                    'array'     => true,
+                    'select'    => array(
+                        "town.town_id as town_id",
+                        "town.town_name as town_name"
+                    )
+                )
+            );
+    
+            $viewData->datas_city = $datas_city;
+            $viewData->datas_town = $datas_town;
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;
@@ -251,6 +345,14 @@ class Warehouse extends CI_Controller {
             );
         }
     }
+
+    public function fetch_town($id){
+        $townResult = $this->db->where('city_id',$id)->get('town')->result_array();
+        echo json_encode($townResult);
+    }
+
+
+
 
 
 }

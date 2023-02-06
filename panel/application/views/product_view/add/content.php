@@ -28,7 +28,6 @@
                                 <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
                             <?php } ?>
                         </select>
-                        <!-- END column -->
                     </div>
                     
                     <div class="form-group">

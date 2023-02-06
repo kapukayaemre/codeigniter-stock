@@ -48,7 +48,9 @@
         dataType : 'json',
         success : function(data) {
           $('select[name = "sub_category_id"]').empty();
-          $.each(data, function (key, value){
+          $('select[name = "sub_category_id"]').append('<option value=" ">' + 'Seçmek için tıklayınız...' + '</option>');
+          $.each(data, function (key, value)
+          {
             $('select[name = "sub_category_id"]').append('<option value=" ' + value.id +' ">' + value.sub_category_name + '</option>');
           });
         }

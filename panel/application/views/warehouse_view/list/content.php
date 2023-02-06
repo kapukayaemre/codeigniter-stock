@@ -40,8 +40,8 @@
                     <tr>
                         <td><?php echo $i; ?></td>
                         <td><?php echo $data->warehouse_name; ?></td>
-                        <td><?php echo $data->city; ?></td>
-                        <td><?php echo $data->district; ?></td>
+                        <td><?php echo $data->city_name; ?></td>
+                        <td><?php echo $data->town_name; ?></td>
                         <td><?php echo $data->full_name; ?></td>
                         <td><?php echo $data->createdAt; ?></td>
                         <td><?php echo $data->updatedAt; ?></td>

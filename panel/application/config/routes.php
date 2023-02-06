@@ -51,6 +51,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'dashboard';
 $route['sub_category/new_form'] = 'sub_category/new_form';
+$route['sub_category/save'] = 'sub_category/save';
+$route['warehouse/new_form'] = 'warehouse/new_form';
+$route['warehouse/save'] = 'warehouse/save';
+$route['warehouse/(:any)'] = 'warehouse/fetch_town/$1';
 $route['sub_category/(:any)'] = 'product/subCategory/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

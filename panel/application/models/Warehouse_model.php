@@ -20,8 +20,8 @@ class Warehouse_model extends CI_Model{
             $this->db->select(array(
                 "warehouse.id as id",
                 "warehouse.warehouse_name as ware_name",
-                "warehouse.city as ware_city",
-                "warehouse.district as ware_dist",
+                "city.city_name as city_name",
+                "town.town_name as town_name",
                 "users.full_name as username",
                 "warehouse.createdAt as created",
                 "warehouse.updatedAt as updated",
@@ -44,6 +44,8 @@ class Warehouse_model extends CI_Model{
 
         /* Joinler */
         $this->db->join("users", "users.id = warehouse.user_id", "left");
+        $this->db->join("city", "city.city_id = warehouse.city_id");
+        $this->db->join("town", "town.town_id = warehouse.town_id");
         /* /Joinler */
 
 
@@ -78,6 +80,14 @@ class Warehouse_model extends CI_Model{
 
         );
         return elements($result, $datas);
+    }
+
+    public function get_all_city(){
+       return $this->db->get('city')->result();
+    }
+
+    public function get_all_town(){
+        return $this->db->get('town')->result();
     }
 
 }

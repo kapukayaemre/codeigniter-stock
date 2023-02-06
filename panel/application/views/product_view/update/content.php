@@ -17,26 +17,33 @@
                         <?php } ?>
                     </div>
 
+
                     <div class="form-group">
                         <label>Ana Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" name="category_id">
-                            <option >Seçmek için tıklayınız...</option>
+                        <select class="form-control" data-plugin="select2" name="category_id">        
                             <?php foreach ($datas_main_category as $data) { ?>
+                                <?php if ($data->category_id == $item->category_id) { ?>
+                                    <option selected value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
+                                <?php } else { ?>
                                 <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
-                            <?php } ?>
+                                <?php } ?>
+                            <?php } ?> 
+                                   
                         </select>
-                        <!-- END column -->
                     </div>
 
                     <div class="form-group">
                         <label>Alt Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" name="sub_category_id">
-                            <option Selected>Seçmek için tıklayınız...</option>
+                        <select class="form-control" data-plugin="select2" name="sub_category_id">        
                             <?php foreach ($datas_sub_category as $data) { ?>
+                                <?php if ($data->sub_category_id == $item->sub_category_id) { ?>
+                                    <option selected value="<?php echo $data->sub_category_id; ?>"><?php echo $data->sub_category_name; ?></option>
+                                <?php } else { ?>
                                 <option value="<?php echo $data->sub_category_id; ?>"><?php echo $data->sub_category_name; ?></option>
-                            <?php } ?>
+                                <?php } ?>
+                            <?php } ?> 
+                                   
                         </select>
-                        <!-- END column -->
                     </div>
 
                     <div class="form-group">

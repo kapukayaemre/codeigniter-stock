@@ -35,5 +35,33 @@
 
 <!-- build:js ../assets/js/core.min.js -->
 <?php $this->load->view('includes/include_script'); ?>
+
+<script>
+    //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
+    $(document).ready(function () {
+    $('select[name=category_id]').on('change', function (){
+    var id = $(this).val();
+    if (id) {
+      $.ajax({
+        url : "<?php echo base_url('sub_category') ?>/" + id,    
+        type : 'GET',
+        dataType : 'json',
+        success : function(data) {
+          $('select[name = "sub_category_id"]').empty();
+          $('select[name = "sub_category_id"]').append('<option value=" ">' + 'Seçmek için tıklayınız...' + '</option>');
+          $.each(data, function (key, value)
+          {
+            $('select[name = "sub_category_id"]').append('<option value=" ' + value.id +' ">' + value.sub_category_name + '</option>');
+          });
+        }
+      });
+    } else {
+      $('select[name = "sub_category_id"]').empty();
+
+    }
+  });
+});
+</script>
+
 </body>
 </html>

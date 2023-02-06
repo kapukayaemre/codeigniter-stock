@@ -17,19 +17,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Şehir</label>
-                        <input class="form-control" placeholder="Şehir" name="city" value="<?php echo $item->city; ?>">
-                        <?php if(isset($form_error)) { ?>
-                            <small class="input-form-error"><?php echo form_error('city'); ?></small>
-                        <?php } ?>
+                        <label>Şehir</label><br>
+                        <select class="form-control" data-plugin="select2" name="city_id" id='city'>        
+                            <?php foreach ($datas_city as $data) { ?>
+                                <?php if ($data->city_id == $item->city_id) { ?>
+                                    <option selected value="<?php echo $data->city_id; ?>"><?php echo $data->city_name; ?></option>
+                                <?php } else { ?>
+                                <option value="<?php echo $data->city_id; ?>"><?php echo $data->city_name; ?></option>
+                                <?php } ?>
+                            <?php } ?>     
+                        </select>
                     </div>
-
+                     
                     <div class="form-group">
-                        <label>İlçe</label>
-                        <input class="form-control" placeholder="İlçe" name="district" value="<?php echo $item->district; ?>">
-                        <?php if(isset($form_error)) { ?>
-                            <small class="input-form-error"><?php echo form_error('district'); ?></small>
-                        <?php } ?>
+                        <label>İlçe</label><br>
+                        <select class="form-control" data-plugin="select2" name="town_id" id='town'>        
+                            <?php foreach ($datas_town as $data) { ?>
+                                <?php if ($data->town_id == $item->town_id) { ?>
+                                    <option selected value="<?php echo $data->town_id; ?>"><?php echo $data->town_name; ?></option>
+                                <?php } else { ?>
+                                <option value="<?php echo $data->town_id; ?>"><?php echo $data->town_name; ?></option>
+                                <?php } ?>
+                            <?php } ?>     
+                        </select>
                     </div>
                     
                     <button type="submit" class="btn btn-success btn-md">Güncelle</button>
