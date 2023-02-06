@@ -16,9 +16,10 @@
                             
                             <?php foreach ($datas_main_category as $data) { ?>
                                 <?php if ($data->category_id == $item->category_id) { ?>
-                                    <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
-                                <?php } ?>
+                                    <option selected value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
+                                <?php } else { ?>
                                 <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
+                                <?php } ?>
                             <?php } ?> 
                                    
                         </select>
