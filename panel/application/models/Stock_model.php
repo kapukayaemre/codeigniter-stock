@@ -19,7 +19,8 @@ class Stock_model extends CI_Model{
        } else {
            $this->db->select(array(
                "stock.id as id",
-               "products.title as stokcard",
+               "products.id as product_id",
+               "products.title as product_name",
                "warehouse.warehouse_name as ware_name",
                "shelves.shelves_name as shelv_name",
                "stock.type as stck_type",
@@ -79,5 +80,6 @@ class Stock_model extends CI_Model{
         );
         return elements($result, $datas);
     }
+
 
 }

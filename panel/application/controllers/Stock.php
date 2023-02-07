@@ -26,7 +26,8 @@ class Stock extends CI_Controller {
                 'array'     => true,
                 'select'    => array(
                     "stock.id",
-                    "product.title",
+                    "products.id as product_id",
+                    "products.title as product_name",
                     "warehouse.warehouse_name",
                     "shelves.shelves_name",
                     "stock.type",
@@ -180,12 +181,21 @@ class Stock extends CI_Controller {
             )
         );
 
+        $datas_type = $this->stock_model->get_all(
+            array(
+                'array' => true,
+                'select' => array(
+                    "stock.type as type"
+                )
+            )
+        );
+
         $datas_stockcard = $this->product_model->get_all(
             array(
                 'array'     => true,
                 'select'    => array(
                     "products.id as product_id",
-                    "products.title"
+                    "products.title as product_title"
                 )
             )
         );
@@ -209,6 +219,7 @@ class Stock extends CI_Controller {
             )
         );
         //! View'e Gönderilecek Veriler
+        $viewData->datas_type = $datas_type;
         $viewData->datas_stockcard = $datas_stockcard;
         $viewData->datas_warehouse = $datas_warehouse;
         $viewData->datas_shelves = $datas_shelves;
@@ -270,6 +281,15 @@ class Stock extends CI_Controller {
                 )
             );
 
+            $datas_type = $this->stock_model->get_all(
+                array(
+                    'array' => true,
+                    'select' => array(
+                        "stock.type as type"
+                    )
+                )
+            );
+
             $datas_stockcard = $this->product_model->get_all(
                 array(
                     'array'     => true,
@@ -299,6 +319,7 @@ class Stock extends CI_Controller {
                 )
             );
             //! View'e Gönderilecek Veriler
+            $viewData->datas_type = $datas_type;
             $viewData->datas_stockcard = $datas_stockcard;
             $viewData->datas_warehouse = $datas_warehouse;
             $viewData->datas_shelves = $datas_shelves;
@@ -350,4 +371,10 @@ class Stock extends CI_Controller {
             );
         }
     }
+
+    public function fetch_shelves($id){
+        $shelvesResult = $this->db->where('warehouse_id', $id)->get('shelves')->result_array();
+        echo json_encode($shelvesResult);
+    }
+
 }

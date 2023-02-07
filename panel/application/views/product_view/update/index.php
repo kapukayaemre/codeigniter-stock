@@ -38,12 +38,17 @@
 
 <script>
 
+//! Update Kısmında İşlemlerin Sırayla yapılması ve inputdaki değerlerin resetlenmesi için
 $(document).ready(function (){
+  $('#category').attr('disabled', 'disabled');
   $('#subcategory').attr('disabled', 'disabled');
-  $('#category'). on ('change', function(){
+  $('#title'). on ('change', function(){
     if($(this).val() != '') {
-      $('#subcategory').removeAttr('disabled');
+      $('#category').removeAttr('disabled');
     }
+  $('#category'). on('change', function(){
+      $('#subcategory').removeAttr('disabled');
+    });
   });
 });
 

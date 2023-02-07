@@ -1,4 +1,3 @@
-<?php echo "<pre>"; print_r($datas_stockcard); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">

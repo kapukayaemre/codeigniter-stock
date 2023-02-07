@@ -35,5 +35,53 @@
 
 <!-- build:js ../assets/js/core.min.js -->
 <?php $this->load->view('includes/include_script'); ?>
+
+<script>
+
+    $(document).ready(function (){
+        $('#warehouse').attr('disabled', 'disabled');
+        $('#shelves').attr('disabled', 'disabled');
+        $('#type').attr('disabled', 'disabled');
+    $('#product'). on ('change', function(){
+    if($(this).val() != '') {
+      $('#warehouse').removeAttr('disabled');
+    }
+    $('#warehouse'). on('change', function(){
+        $('#shelves').removeAttr('disabled');
+            });
+    $('#shelves'). on('change', function(){
+    $('#type').removeAttr('disabled');
+            });
+        });
+    });
+
+        
+    //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
+    $(document).ready(function () {
+    $('select[name=warehouse_id]').on('change', function (){
+    var id = $(this).val();
+    if (id) {
+      $.ajax({
+        url : "<?php echo base_url('shelves') ?>/" + id,    
+        type : 'GET',
+        dataType : 'json',
+        success : function(data) {
+          $('select[name = "shelves_id"]').empty();
+          $('select[name = "shelves_id"]').append('<option value=" ">' + 'Seçmek için tıklayınız...' + '</option>');
+          $.each(data, function (key, value)
+          {
+            $('select[name = "shelves_id"]').append('<option value=" ' + value.id +' ">' + value.shelves_name + '</option>');
+          });
+        }
+      });
+    } else {
+      $('select[name = "shelves_id"]').empty();
+
+    }
+  });
+});
+</script>
+
+
 </body>
 </html>

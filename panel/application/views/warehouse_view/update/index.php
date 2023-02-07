@@ -37,6 +37,23 @@
 <?php $this->load->view('includes/include_script'); ?>
 
 <script>
+
+$(document).ready(function (){
+  $('#city').attr('disabled', 'disabled');
+  $('#town').attr('disabled', 'disabled');
+  $('#warehouse'). on ('change', function(){
+    if($(this).val() != '') {
+      $('#city').removeAttr('disabled');
+    }
+  $('#city'). on('change', function(){
+      $('#town').removeAttr('disabled');
+    });
+  });
+});
+
+
+
+
   var SITE_URL = "http://localhost/sms/panel/"
     //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
     $(document).ready(function () {

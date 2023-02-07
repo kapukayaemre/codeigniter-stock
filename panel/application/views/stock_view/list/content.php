@@ -1,4 +1,4 @@
-
+<?php // echo "<pre>"; print_r($datas); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -20,6 +20,7 @@
             <table class="table table-hover table-striped">
                 <thead>
                     <th>#</th>
+                    <th>Stok Kartı</th>
                     <th>Depo</th>
                     <th>Raf</th>
                     <th>Tip</th>
@@ -41,6 +42,7 @@
                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
+                        <td><?php echo $data->product_name; ?></td>
                         <td><?php echo $data->warehouse_name; ?></td>
                         <td><?php echo $data->shelves_name; ?></td>
                         <td><?php echo ($data->type === 'in') ? 'Giriş' : 'Çıkış';?></td>

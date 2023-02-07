@@ -18,8 +18,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Ana Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" name="category_id">        
+                        <label>Depo Adı</label><br>
+                        <select class="form-control" data-plugin="select2" name="warehouse_id">        
                             <?php foreach ($datas_warehouse as $data) { ?>
                                 <?php if ($data->warehouse_id == $item->warehouse_id) { ?>
                                     <option selected value="<?php echo $data->warehouse_id; ?>"><?php echo $data->warehouse_name; ?></option>

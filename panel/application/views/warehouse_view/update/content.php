@@ -10,7 +10,7 @@
                 <form action="<?php echo base_url("warehouse/update/$item->id"); ?>" method="POST">
                     <div class="form-group">
                         <label>Depo Adı</label>
-                        <input class="form-control" placeholder="Depo Adı" name="warehouse_name" value="<?php echo $item->warehouse_name; ?>">
+                        <input class="form-control" placeholder="Depo Adı" name="warehouse_name" id='warehouse' value="<?php echo $item->warehouse_name; ?>">
                         <?php if(isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('warehouse_name'); ?></small>
                         <?php } ?>

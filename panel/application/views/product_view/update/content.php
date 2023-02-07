@@ -11,7 +11,7 @@
 
                     <div class="form-group">
                         <label>Stok Kart Adı</label>
-                        <input class="form-control" placeholder="Stok Kart Adı" name="title" value="<?php echo $item->title; ?>">
+                        <input class="form-control" placeholder="Stok Kart Adı" name="title" id="title" value="<?php echo $item->title; ?>">
                         <?php if(isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('title'); ?></small>
                         <?php } ?>
