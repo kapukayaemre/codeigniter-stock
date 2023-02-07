@@ -10,8 +10,8 @@
                 <form action="<?php echo base_url("product/update/$item->id"); ?>" method="POST">
 
                     <div class="form-group">
-                        <label>Başlık</label>
-                        <input class="form-control" placeholder="Başlık" name="title" value="<?php echo $item->title; ?>">
+                        <label>Stok Kart Adı</label>
+                        <input class="form-control" placeholder="Stok Kart Adı" name="title" value="<?php echo $item->title; ?>">
                         <?php if(isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('title'); ?></small>
                         <?php } ?>
@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         <label>Ana Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" name="category_id">        
+                        <select class="form-control" data-plugin="select2" name="category_id" id="category">        
                             <?php foreach ($datas_main_category as $data) { ?>
                                 <?php if ($data->category_id == $item->category_id) { ?>
                                     <option selected value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
@@ -34,7 +34,7 @@
 
                     <div class="form-group">
                         <label>Alt Kategorisi</label><br>
-                        <select class="form-control" data-plugin="select2" name="sub_category_id">        
+                        <select class="form-control" data-plugin="select2" name="sub_category_id" id="subcategory">        
                             <?php foreach ($datas_sub_category as $data) { ?>
                                 <?php if ($data->sub_category_id == $item->sub_category_id) { ?>
                                     <option selected value="<?php echo $data->sub_category_id; ?>"><?php echo $data->sub_category_name; ?></option>

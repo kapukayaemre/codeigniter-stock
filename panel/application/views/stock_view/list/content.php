@@ -20,7 +20,6 @@
             <table class="table table-hover table-striped">
                 <thead>
                     <th>#</th>
-                    <th>Stok Kart</th>
                     <th>Depo</th>
                     <th>Raf</th>
                     <th>Tip</th>
@@ -42,7 +41,6 @@
                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $data->stockcard_title; ?></td>
                         <td><?php echo $data->warehouse_name; ?></td>
                         <td><?php echo $data->shelves_name; ?></td>
                         <td><?php echo ($data->type === 'in') ? 'Giriş' : 'Çıkış';?></td>

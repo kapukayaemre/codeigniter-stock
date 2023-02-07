@@ -13,8 +13,8 @@
                 <form action="<?php echo base_url('product/save'); ?>" method="POST">
 
                     <div class="form-group">
-                        <label>Ürün Adı</label>
-                        <input class="form-control" placeholder="Ürün Adı" name="title">
+                        <label>Stok Kart Adı</label>
+                        <input class="form-control" placeholder="Stok Kart Adı" name="title">
                         <?php if (isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('title'); ?></small>
                         <?php } ?>

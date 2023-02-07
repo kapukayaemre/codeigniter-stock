@@ -19,7 +19,7 @@ class Stock_model extends CI_Model{
        } else {
            $this->db->select(array(
                "stock.id as id",
-               "stockcards.stockcard_title as card_name",
+               "products.title as stokcard",
                "warehouse.warehouse_name as ware_name",
                "shelves.shelves_name as shelv_name",
                "stock.type as stck_type",
@@ -43,11 +43,10 @@ class Stock_model extends CI_Model{
                )
            );
        }
-
-       $this->db->join("stockcards","stockcards.id = stock.stockcard_id","left");
-       $this->db->join("warehouse"  ,"warehouse.id =  stock.warehouse_id","left");
-       $this->db->join("shelves","shelves.id = stock.shelves_id","left");
-       $this->db->join("users","users.id = stock.user_id","left");
+        $this->db->join("products", "products.id = stock.product_id");
+        $this->db->join("warehouse"  ,"warehouse.id =  stock.warehouse_id","left");
+        $this->db->join("shelves","shelves.id = stock.shelves_id","left");
+        $this->db->join("users","users.id = stock.user_id","left");
 
         if ($params['array']){
             $result = $this->db->get($this->tableName)->result();
@@ -56,7 +55,6 @@ class Stock_model extends CI_Model{
         }
 
         return $result;
-
 
     }
 

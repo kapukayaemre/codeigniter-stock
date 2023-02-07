@@ -37,6 +37,16 @@
 <?php $this->load->view('includes/include_script'); ?>
 
 <script>
+
+$(document).ready(function (){
+  $('#subcategory').attr('disabled', 'disabled');
+  $('#category'). on ('change', function(){
+    if($(this).val() != '') {
+      $('#subcategory').removeAttr('disabled');
+    }
+  });
+});
+
     //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
     $(document).ready(function () {
     $('select[name=category_id]').on('change', function (){
@@ -57,10 +67,10 @@
       });
     } else {
       $('select[name = "sub_category_id"]').empty();
-
     }
   });
 });
+
 </script>
 
 </body>

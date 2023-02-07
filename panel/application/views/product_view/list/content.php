@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            Ürün Listesi
+            Stok Kart Listesi
             <a href="<?php echo base_url('product/new_form'); ?>" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> <b>Yeni Ekle</b></a>
         </h4>
     </div><!-- END column -->
@@ -20,7 +20,7 @@
             <table class="table table-hover table-striped">
                 <thead>
                     <th>#</th>
-                    <th>Ürün Adı</th>
+                    <th>Stok Kart Adı</th>
                     <th>Açıklama</th>
                     <th>Ana Kategorisi</th>
                     <th>Alt Kategorisi</th>

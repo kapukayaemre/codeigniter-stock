@@ -3,17 +3,7 @@
         <div class="widget">
             <div class="widget-body">
                 <form action="<?php echo base_url("stock/update/$item->id"); ?>" method="POST">
-
-                    <div class="form-group">
-                        <label>Stok Kartı</label><br>
-                        <select class="form-control" data-plugin="select2" name="stockcard_id">
-                            <option selected>Seçmek için tıklayınız...</option>
-                            <?php foreach ($datas_stockcard as $data) { ?>
-                                <option value="<?php echo $data->stockcard_id; ?>"><?php echo $data->stockcard_name; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
+                
                     <div class="form-group">
                         <label>Depo</label><br>
                         <select class="form-control" data-plugin="select2" name="warehouse_id">

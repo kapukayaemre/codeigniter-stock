@@ -1,3 +1,4 @@
+<?php echo "<pre>"; print_r($datas_stockcard); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -11,14 +12,14 @@
 
                     <div class="form-group">
                         <label>Stok Kartı</label><br>
-                        <select class="form-control" data-plugin="select2" name="stockcard_id">
-                            <option selected>Seçmek için tıklayınız...</option>
+                        <select class="form-control" data-plugin="select2" name="product_id">
+                            <option Selected>Seçmek için tıklayınız...</option>
                             <?php foreach ($datas_stockcard as $data) { ?>
-                                <option value="<?php echo $data->stockcard_id; ?>"><?php echo $data->stockcard_name; ?></option>
+                                <option value="<?php echo $data->product_id; ?>"><?php echo $data->product_title; ?></option>
                             <?php } ?>
                         </select>
                     </div>
-
+                
                     <div class="form-group">
                         <label>Depo</label><br>
                         <select class="form-control" data-plugin="select2" name="warehouse_id">
