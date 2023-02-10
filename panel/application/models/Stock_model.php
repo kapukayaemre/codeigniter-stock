@@ -57,57 +57,24 @@ class Stock_model extends CI_Model{
         if(!($this->db->select("*")->order_by('id',"DESC")->get($this->tableName)->result())) {
             $data['total_stock'] = $data['total']; 
         } else {
-            
             $query = $this->db->get($this->tableName);
             foreach ($query->result() as $row)
-            {
-                $data['total_stock'] = $data['total'] + $row->total_stock."<br>";       
+            {   
+                if($data['product_id'] != $row->product_id){
+                    $data['total_stock'] = $data['total'];
+                } else {
+
+                    if(($data['type'] == 'in') && ($data['product_id'] == $row->product_id)){
+                        $data['total_stock'] = $data['total'] + $row->total_stock;  
+                    }else if(($data['type'] == 'out') && ($data['product_id'] == $row->product_id)){
+                        $data['total_stock'] =  $row->total_stock - $data['total'];  
+                    }   
+                }
+                   
             }
         }
-
-        return $this->db->insert($this->tableName, $data);
-
-      /*   if(!($this->db->select("*")->order_by('id',"DESC")->get($this->tableName)->result())) {
-            $data['total_stock'] = $data['total']; 
-        } else {
-            $row = $this->db->select("*")->limit(1)->order_by('id',"DESC")->get($this->tableName)->row();
-            echo $row->total_stock;
-            print_r($row);
-            exit();
-        }
         
-        return $this->db->insert($this->tableName, $data); */
-
-        //$row = $this->db->select("*")->order_by('id',"DESC")->get($this->tableName)->result();
-
-        // ($data['total_stock'] === '') ? $data['total_stock'] = $data['total'] : $data['total_stock'] = $data["total"] + $row->total_stock;
-
-       /*  if($row->type == 'in' && $row->product_id == $data['product_id']) {
-            $data['total_stock'] = $data["total"] + $row->total_stock; 
-        } else if($row->type == 'out' && $row->product_id == $data['product_id']) {
-            $data['total_stock'] = $row->total_stock - $data["total"];
-        } */
-
-       /*  echo "<pre>";
-        print_r($row);
-        echo "<hr>";
-        print_r($data); 
-        exit(); */
- 
-       // return $this->db->insert($this->tableName, $data);
-
-
-       /* ÇALIŞIYOR SATIR SATIR TOPLUYOR
-       $query = $this->db->get($this->tableName);
-
-       foreach ($query->result() as $row)
-       {
-           $data['total_stock'] = $data['total'] + $row->total_stock."<br>";
-              
-       }
-       return $this->db->insert($this->tableName, $data); */
-
-
+        return $this->db->insert($this->tableName, $data);
 
     }
     public function update($where = array(), $data = array()){
