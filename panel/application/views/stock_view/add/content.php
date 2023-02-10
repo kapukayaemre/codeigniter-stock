@@ -1,3 +1,4 @@
+<?php //echo "<pre>"; print_r($calc); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -51,6 +52,14 @@
                     <div class="form-group">
                         <label>Stok Adeti</label>
                         <input class="form-control" placeholder="Adet Giriniz" name="total">
+                        <?php if (isset($form_error)) { ?>
+                            <small class="input-form-error"><?php echo form_error('total'); ?></small>
+                        <?php } ?>
+                    </div>
+
+                    <div hidden class="form-group">
+                        <label>Total Stok Adeti</label>
+                        <input class="form-control" placeholder="Adet Giriniz" name="total_stock">
                         <?php if (isset($form_error)) { ?>
                             <small class="input-form-error"><?php echo form_error('total'); ?></small>
                         <?php } ?>

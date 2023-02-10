@@ -1,10 +1,7 @@
 <?php
-
 class Stock extends CI_Controller {
-
     public $viewFolder = "";
-    public function __construct() {
-        
+    public function __construct() { 
         parent::__construct();
         $this->viewFolder = 'stock_view';
         $this->load->model('stock_model');
@@ -19,7 +16,6 @@ class Stock extends CI_Controller {
     }
     //! Listeleme icin viewe gönderilenler
     public function index(){
-        
         $viewData = new stdClass();
         $datas = $this->stock_model->get_all(
             array(
@@ -32,6 +28,7 @@ class Stock extends CI_Controller {
                     "shelves.shelves_name",
                     "stock.type",
                     "stock.total",
+                    "stock.total_stock",
                     "users.full_name",
                     "stock.createdAt",
                     "stock.updatedAt",
@@ -44,14 +41,16 @@ class Stock extends CI_Controller {
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'list';
         $viewData->datas = $datas;
-
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     //! Yeni Kategori Ekleme
     public function new_form(){
-
         $viewData = new stdClass();
-
+        $datas_all = $this->stock_model->get_all(
+            array(
+                'array' => true
+            )
+        );
         $datas_stockcard = $this->product_model->get_all(
             array(
                 'array'     => true,
@@ -61,7 +60,6 @@ class Stock extends CI_Controller {
                 )
             )
         );
-
         $datas_warehouse = $this->warehouse_model->get_all(
             array(
                 'array'     => true,
@@ -80,12 +78,12 @@ class Stock extends CI_Controller {
                 )
             )
         );
+        $viewData->datas_all = $datas_all;
         $viewData->datas_stockcard = $datas_stockcard;
         $viewData->datas_warehouse = $datas_warehouse;
         $viewData->datas_shelves = $datas_shelves;
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'add';
-
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     //! Kategori Kayıt İçin Form Kontrolleri
@@ -99,6 +97,8 @@ class Stock extends CI_Controller {
             )
         );
         $validate = $this->form_validation->run();
+
+
         //! Veritabanına Kayıt İşlemleri ve Kontrolleri
         if($validate) {
             $insert = $this->stock_model->add(
@@ -108,6 +108,7 @@ class Stock extends CI_Controller {
                     'shelves_id'        => $this->input->post('shelves_id'),
                     'type'              => $this->input->post('type'),
                     'total'             => $this->input->post('total'),
+                    'total_stock'       => $this->input->post('total_stock'),
                     'user_id'           => $this->session->user->id,
                     'createdAt'         => date('Y-m-d H:i:s'),
                     'description'       => $this->input->post('description'),
@@ -129,20 +130,17 @@ class Stock extends CI_Controller {
             }
             $this->session->set_flashdata("alert", $alert);
             redirect(base_url('stock'));
-
         } else {
             $viewData = new stdClass();
-
             $datas_stockcard = $this->product_model->get_all(
                 array(
                     'array'     => true,
                     'select'    => array(
                         "products.id as product_id",
-                        "products.title"
+                        "products.title as product_title"
                     )
                 )
             );
-
             $datas_warehouse = $this->warehouse_model->get_all(
                 array(
                     'array'     => true,
@@ -167,12 +165,13 @@ class Stock extends CI_Controller {
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = 'add';
             $viewData->form_error = true; //! Alertler İçin True olarak yönlendirildi.
-
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-        }        
+        }
+
+
+
     }
     public function update_form($id){
-
         $viewData = new stdClass();
         //! Veritabanından Güncellenecek Dosya 
         $item = $this->stock_model->get(
@@ -180,7 +179,6 @@ class Stock extends CI_Controller {
                 'id' => $id
             )
         );
-
         $datas_type = $this->stock_model->get_all(
             array(
                 'array' => true,
@@ -189,7 +187,6 @@ class Stock extends CI_Controller {
                 )
             )
         );
-
         $datas_stockcard = $this->product_model->get_all(
             array(
                 'array'     => true,
@@ -199,7 +196,6 @@ class Stock extends CI_Controller {
                 )
             )
         );
-
         $datas_warehouse = $this->warehouse_model->get_all(
             array(
                 'array'     => true,
@@ -226,7 +222,6 @@ class Stock extends CI_Controller {
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = 'update';
         $viewData->item = $item;
-
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     public function update($id){
@@ -273,14 +268,12 @@ class Stock extends CI_Controller {
             $this->session->set_flashdata("alert", $alert);
             redirect(base_url('stock'));      
             } else {
-
             $viewData = new stdClass();
             $item = $this->stock_model->get(
                 array(
                     'id' => $id
                 )
             );
-
             $datas_type = $this->stock_model->get_all(
                 array(
                     'array' => true,
@@ -289,7 +282,6 @@ class Stock extends CI_Controller {
                     )
                 )
             );
-
             $datas_stockcard = $this->product_model->get_all(
                 array(
                     'array'     => true,
@@ -299,7 +291,6 @@ class Stock extends CI_Controller {
                     )
                 )
             );
-
             $datas_warehouse = $this->warehouse_model->get_all(
                 array(
                     'array'     => true,
@@ -327,7 +318,6 @@ class Stock extends CI_Controller {
             $viewData->subViewFolder = 'update';
             $viewData->form_error = true;
             $viewData->item = $item;
-
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
     }
@@ -371,10 +361,10 @@ class Stock extends CI_Controller {
             );
         }
     }
-
     public function fetch_shelves($id){
         $shelvesResult = $this->db->where('warehouse_id', $id)->get('shelves')->result_array();
         echo json_encode($shelvesResult);
+
     }
 
 }

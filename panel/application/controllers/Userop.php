@@ -52,7 +52,7 @@ class Userop extends CI_Controller {
 
             $viewData = new stdClass();
 
-            /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
+            /* View'e gönderilecek Değişkenlerin Set Edilmesi.. */
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "login";
             $viewData->form_error = true;

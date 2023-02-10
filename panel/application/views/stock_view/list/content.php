@@ -1,4 +1,4 @@
-<?php // echo "<pre>"; print_r($datas); ?>
+<?php //echo "<pre>"; print_r($calc); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -26,6 +26,7 @@
                     <th>Tip</th>
                     <th>Adet</th>
                     <th>Sorumlu</th>
+                    <th>Mevcut Toplam Stok</th>
                     <th>Açıklama</th>
                     <th>Kayıt Tarihi</th>
                     <th>Düzenlenme Tarihi</th>
@@ -37,9 +38,12 @@
                 <tbody>
                 
                 <?php $i = 0;
+
+                $total_stock = 0;
                  foreach ($datas as $data) {
                     $i++;
-                 ?>
+                   
+                  ?>
                     <tr>
                         <td><?php echo $i; ?></td>
                         <td><?php echo $data->product_name; ?></td>
@@ -48,6 +52,7 @@
                         <td><?php echo ($data->type === 'in') ? 'Giriş' : 'Çıkış';?></td>
                         <td><?php echo $data->total;?></td>
                         <td><?php echo $data->full_name;?></td>
+                        <td><?php echo $data->total_stock; ?></td>
                         <td><?php echo $data->description;?></td>
                         <td><?php echo $data->createdAt;?></td>
                         <td><?php echo $data->updatedAt;?></td>
