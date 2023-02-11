@@ -38,20 +38,6 @@
 
 <script>
 
-//! Update Kısmında İşlemlerin Sırayla yapılması ve inputdaki değerlerin resetlenmesi için
-$(document).ready(function (){
-  $('#category').attr('disabled', 'disabled');
-  $('#subcategory').attr('disabled', 'disabled');
-  $('#title'). on ('change', function(){
-    if($(this).val() != '') {
-      $('#category').removeAttr('disabled');
-    }
-  $('#category'). on('change', function(){
-      $('#subcategory').removeAttr('disabled');
-    });
-  });
-});
-
     //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
     $(document).ready(function () {
     $('select[name=category_id]').on('change', function (){

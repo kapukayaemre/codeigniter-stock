@@ -37,24 +37,6 @@
 <?php $this->load->view('includes/include_script'); ?>
 
 <script>
-
-    $(document).ready(function (){
-        $('#warehouse').attr('disabled', 'disabled');
-        $('#shelves').attr('disabled', 'disabled');
-        $('#type').attr('disabled', 'disabled');
-    $('#product'). on ('change', function(){
-    if($(this).val() != '') {
-      $('#warehouse').removeAttr('disabled');
-    }
-    $('#warehouse'). on('change', function(){
-        $('#shelves').removeAttr('disabled');
-            });
-    $('#shelves'). on('change', function(){
-    $('#type').removeAttr('disabled');
-            });
-        });
-    });
-
         
     //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
     $(document).ready(function () {

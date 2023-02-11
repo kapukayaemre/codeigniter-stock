@@ -1,4 +1,8 @@
 <?php //echo "<pre>"; print_r($calc); ?>
+<style>
+  .redCell {color:red; font-weight: 900;}
+  .greenCell {color:#2ecc71; font-weight: 600}
+</style>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -49,10 +53,10 @@
                         <td><?php echo $data->product_name; ?></td>
                         <td><?php echo $data->warehouse_name; ?></td>
                         <td><?php echo $data->shelves_name; ?></td>
-                        <td><?php echo ($data->type === 'in') ? 'Giriş' : 'Çıkış';?></td>
+                        <td class="<?php echo ($data->type === 'in') ? 'greenCell' : 'redCell'; ?>"><?php echo ($data->type === 'in') ? 'Giriş' : 'Çıkış';?></td>
                         <td><?php echo $data->total;?></td>
                         <td><?php echo $data->full_name;?></td>
-                        <td><?php echo $data->total_stock; ?></td>
+                        <td><b><?php echo $data->total_stock; ?></b></td>
                         <td><?php echo $data->description;?></td>
                         <td><?php echo $data->createdAt;?></td>
                         <td><?php echo $data->updatedAt;?></td>

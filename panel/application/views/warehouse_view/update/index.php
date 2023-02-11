@@ -38,30 +38,14 @@
 
 <script>
 
-$(document).ready(function (){
-  $('#city').attr('disabled', 'disabled');
-  $('#town').attr('disabled', 'disabled');
-  $('#warehouse'). on ('change', function(){
-    if($(this).val() != '') {
-      $('#city').removeAttr('disabled');
-    }
-  $('#city'). on('change', function(){
-      $('#town').removeAttr('disabled');
-    });
-  });
-});
-
-
-
-
-  var SITE_URL = "http://localhost/sms/panel/"
+ 
     //! Ana Kategoriler Seçilince Alt Kategorilerin Bağlantılı Gelmesi İçin
     $(document).ready(function () {
     $('select[name=city_id]').on('change', function (){
     var id = $(this).val();
     if (id) {
       $.ajax({
-        url : SITE_URL+'warehouse/' + id,    
+        url : "<?php echo base_url('warehouse') ?>/" + id,    
         type : 'GET',
         dataType : 'json',
         success : function(data) {
