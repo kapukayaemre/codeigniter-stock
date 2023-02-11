@@ -70,6 +70,7 @@ class Sub_category extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('sub_category_name', 'Alt Kategori Adı', 'required|trim');
+
         $this->form_validation->set_message(
             array(
                 'required' => '<b>{field}</b> Alanı Doldurulmalıdır.'
@@ -79,7 +80,6 @@ class Sub_category extends CI_Controller {
         $validate = $this->form_validation->run();
 
         //! Veritabanına Kayıt İşlemleri ve Kontrolleri
-
         if($validate) {
             $insert = $this->sub_category_model->add(
                 array(

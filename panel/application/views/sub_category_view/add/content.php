@@ -23,8 +23,7 @@
                                 <?php foreach ($datas_main_category as $data) { ?>
                                 <option value="<?php echo $data->category_id; ?>"><?php echo $data->category_name; ?></option>
                                 <?php } ?>
-                            </select>
-                        <!-- END column -->
+                            </select>  
                     </div>
 
                     <button type="submit" class="btn btn-success btn-md"><b>Ekle</b></button>
